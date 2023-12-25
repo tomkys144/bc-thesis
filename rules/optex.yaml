@@ -1,0 +1,11 @@
+!config
+identifier: optex
+name: OpTeX
+commands:
+    - name: The OpTeX engine
+      command: >
+        @{
+            return getCommand('optex', currentFile())
+        }
+      exit: value == 0
+arguments: []

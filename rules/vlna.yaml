@@ -1,0 +1,34 @@
+!config
+identifier: vlna
+name: Vlna
+commands:
+    - name: Vlna command
+      command: >
+        @{
+            return getCommand('vlna', math, verb, all)
+        }
+      exit: value == 0
+arguments:
+    - identifier: math
+      flag: >
+        @{
+            isFalse(parameters.math, '-m')
+        }
+      required: false
+      default: 'false'
+      
+    - identifier: verb
+      flag: >
+        @{
+            isFalse(parameters.verb, '-n')
+        }
+      required: false
+      default: 'false'
+      
+    - identifier: all
+      flag: >
+        @{
+            isTrue(parameters.all, '*.tex', currentFile())
+        }
+      required: false
+      default: 'false'
