@@ -1,0 +1,51 @@
+name: Building thesis
+
+on:
+    push:
+        branches:
+            - main
+        paths-ignore:
+            - 'slides.tex'
+            - 'slides-*.tex'
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup TeX Live
+              uses: teatimeguest/setup-texlive-action@v3
+              with:
+                packages: >-
+                    arara
+                    optex
+                    vlna
+                    lm-math
+
+            - name: Checkout CTUstyle3
+              run: |
+                git clone https://github.com/olsak/CTUstyle3.git style
+                cp style/*logo*.pdf style/ctustyle3.tex style/Technika-*.otf .
+
+            # - name: Build
+            #   run: |
+            #     arara thesis.tex
+            #     mkdir output
+            #     mv thesis.pdf *.log output
+            #     ls output
+
+            - name: Build
+              run: |
+                vlna -r -n -m *.tex
+                optex thesis.tex
+                optex thesis.tex
+                optex thesis.tex
+                
+            - name: Upload
+              uses: actions/upload-artifact@v4
+              with:
+                name: thesis
+                path: thesis.pdf
