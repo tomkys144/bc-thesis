@@ -13,11 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Logseq Publish
-        uses: pengx17/logseq-publish@v0.1
+        uses: logseq/publish-spa@v0.3.0
         with:
-          version: latest
-          src: notes
-          dest: _site
+          graph-directory: notes
+          output-directory: _site
       - name: Add a nojekyll file
         run: touch $GITHUB_WORKSPACE/_site/.nojekyll
       - name: Upload artifact

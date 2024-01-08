@@ -1,0 +1,3 @@
+- [[Princip fungování]]
+- [[Rozložení eletktrod]]
+-
