@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "spelifil.optex-vscode"
+        "spelifil.optex-vscode",
+        "jrbentzon.bibtex-formatter"
     ]
 }
