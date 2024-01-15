@@ -1,4 +1,4 @@
-tags:: teorie, HW
+tags:: teorie, hw
 
 - [[@Standards of instrumentation of EMG]]
 	- Dříve měděné plošky, či kroužky

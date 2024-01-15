@@ -1,4 +1,4 @@
-tags:: teorie, HW
+tags:: teorie, hw
 
 - [[@Standards of instrumentation of EMG]]
 	- ![image.png](../assets/image_1704980173352_0.png)

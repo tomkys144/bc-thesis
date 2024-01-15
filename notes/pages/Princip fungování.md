@@ -1,2 +1,0 @@
-- [[Biologie]]
-- [[Zpracování signálu HW]]

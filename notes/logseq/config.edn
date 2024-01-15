@@ -420,4 +420,9 @@
  :orphan-pages? true
  :journal? false
  :excluded-pages? false}
+ :journal/page-title-format "yyyy-MM-dd"
+ :feature/enable-flashcards? false
+ :feature/enable-journals? false
+ :default-home {:page "Kapitoly"}
+ :feature/enable-whiteboards? false
  }

@@ -1,3 +1,5 @@
-- [[Princip fungování]]
-- [[Rozložení eletktrod]]
--
+tags:: struktura práce, teorie
+
+- [[Neuromuskulární systém]]
+- [[Zpracování signálu HW]]
+- [[Rozložení elektrod]]
