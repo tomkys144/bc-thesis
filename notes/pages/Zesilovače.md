@@ -7,7 +7,6 @@ tags:: teorie, HW
 		- E2 / G2 /  'reference' (červená)
 		- E0 / ground / 'ground' (zelená)
 	- Zesiluje jejich rozdíl, tedy potlačuje společnou složku
-		- Potlačení není dokonalé, jeh kavlitu značí parametr CMRR (Common Mode Rejection Ratio)
-			- $CMRR_{dB} = 20 \times \log_{10}(\frac {\text{Diferential gain}} {\text{Common mode gain}})$
-		- S vyššími frekvenci klesá, většina výrobců udává v 50 / 60 H
--
+		- Potlačení není dokonalé, jeh kavlitu značí parametr [[CMRR]]
+- [[@Cram's introduction to surface electromyography]]
+	- Velikost vstupního signálu jsou řádově microvolty a zesilejeme na zpracovatelnou velikost

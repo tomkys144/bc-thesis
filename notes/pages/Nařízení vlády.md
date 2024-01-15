@@ -1,4 +1,6 @@
-- [[@Nařízení vlády č. 361|2007 Sb. nařízení vlády, kterým se stanoví podmínky ochrany zdraví při práci]]
+tags:: motivace, teorie
+
+- [[@Nařízení vlády č. 361|2007 Sb. nařízení vlády, kterým se stanoví podmínky ochrany zdraví při práci]] 
   title:: Nařízení vlády
 - Část 2 Hlava 4 Díl 2 nařízení vlády č. 361/2007 Sb. nařízení vlády, 
   kterým se stanoví podmínky ochrany zdraví při práci - znění od 

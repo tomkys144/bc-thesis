@@ -1,3 +1,2 @@
-- [[Změny potenciálu ve svalu]]
-- [[Čtení elektrodami]]
+- [[Biologie]]
 - [[Zpracování signálu HW]]

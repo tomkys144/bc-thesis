@@ -1,3 +1,6 @@
 {
-    "libraryFilePath": "references.bib"
+    "libraryFilePath": "references.bib",
+    "files.exclude": {
+        "logseq/*": true
+    }
 }

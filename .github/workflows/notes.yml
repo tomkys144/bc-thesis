@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - notes/*
+      - notes/**/*.md
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,6 +17,8 @@ jobs:
         with:
           graph-directory: notes
           output-directory: _site
+          theme-mode: dark
+          accent-color: orange
       - name: Add a nojekyll file
         run: touch $GITHUB_WORKSPACE/_site/.nojekyll
       - name: Upload artifact

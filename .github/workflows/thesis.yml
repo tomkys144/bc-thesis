@@ -5,9 +5,9 @@ on:
         branches:
             - main
         paths-ignore:
-            - 'slides.tex'
-            - 'slides-*.tex'
-            - 'notes/*'
+            - '**/slides.tex'
+            - '**/slides-*.tex'
+            - 'notes/**'
 
 jobs:
     build:
