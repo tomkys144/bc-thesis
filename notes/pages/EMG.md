@@ -2,4 +2,4 @@ tags:: struktura práce, teorie
 
 - [[Neuromuskulární systém]]
 - [[Zpracování signálu HW]]
-- [[Rozložení elektrod]]
+- [[Umístění elektrod]]

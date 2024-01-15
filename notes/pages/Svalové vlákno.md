@@ -1,0 +1,23 @@
+tags:: teorie, bio
+
+- [[@Cram's introduction to surface electromyography]]
+	- Skládá se z jednotlivých myofbril
+		- Ty probíhají po celé délce vlákna
+		- Skládají se z ještě menších dílků, filamentů
+			- Actin a myosin
+			- Základní stavební jednotka je sarcomera
+				- Každá sarcomera se skládá ze 3. typů částí
+					- I band
+						- Pouze actin
+					- H band
+						- Pouze myosin
+					- A band
+						- Překrytí actinu a myosinu
+			- Actin
+				- Slabé vlákénko
+				- Skládá se z dvou negativně nabitých molekul které se "stáčí" okolo sebe
+			- Myosin
+				- Podstatně tlustší
+				- Má na sobě "kulové hlavy" na kterých je přidělána molekula ATP (ADP a Pi)
+				- Také negativně nabitý
+		- [[Činnost svalu]]
