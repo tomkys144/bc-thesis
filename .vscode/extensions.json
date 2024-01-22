@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "spelifil.optex-vscode",
-        "jrbentzon.bibtex-formatter"
+        "jrbentzon.bibtex-formatter",
+        "discretegames.f5anything"
     ]
 }

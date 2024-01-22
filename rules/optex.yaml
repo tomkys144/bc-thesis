@@ -5,7 +5,7 @@ commands:
     - name: The OpTeX engine
       command: >
         @{
-            return getCommand('optex', currentFile())
+            return getCommand('optex', "--synctex=1", currentFile())
         }
       exit: value == 0
 arguments: []
