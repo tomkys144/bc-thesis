@@ -1,1 +1,117 @@
 \chap Zpracování signálů
+
+\sec Zpracování signálu z~přístroje Shimmer
+
+Shimmer ukládá data do souborů csv. Je tedy třeba je načíst a vybrat korektní sloupce (18 a 20) vytvořit z~nich vektory.
+
+\begtt
+data = readtable(shimmer_file);
+channel1 = table2array(data(:, 18));
+channel2 = table2array(data(:, 20));
+\endtt
+
+\midinsert
+\clabel [fig:signal_raw] {Surová data z~přístroje Shimmer}
+\picheight=8cm \cinspic signal_raw.png
+\caption/f Surová data z~přístroje Shimmer
+\endinsert
+
+Následně filtrujeme šumy a artefakty ze signálu. Volíme \glref{BP} na frekvencích 20 - 120 Hz. Pásmová zádrž není třeba použít díky napájení přístroje z~baterií. Využíváme butterworthův filter 6. řádu.
+
+\begtt
+high_pass_freq = 20;
+low_pass_freq = 120;
+
+[b, a] = butter(6, [high_pass_freq / fs_shimmer * 2 ...
+    low_pass_freq / fs_shimmer * 2]);
+
+channel1_bp = filter(b, a, channel1);
+channel2_bp = filter(b, a, channel2);
+\endtt
+
+\midinsert
+\clabel [fig:signal_bp] {Signál filtrovaný pásmovou propustí}
+\picheight=8cm \cinspic signal_bp.png
+\caption/f Signál filtrovaný pásmovou propustí
+\endinsert
+
+
+Následně spočítáme obálku signálu. Ta se rovná absolutní hodnotě signálu.
+
+\begtt
+envelope1=channel1_abs;
+envelope2=channel2_abs;
+\endtt
+
+\midinsert
+\clabel [fig:signal_envelope] {Obálka filtrovaného signálu}
+\picheight=8cm \cinspic signal_envelope.png
+\caption/f Obálka filtrovaného signálu
+\endinsert
+
+Tato obálka lze použít, pro porovnání se GETA je třeba převzorkovat signál ze vzorkovací frekvence 256 Hz na 1 Hz. To provedeme spočítáním \glref{RMS} dle vzorce \ref[eq:rms] pro každých 256 vzorků (tedy jednu sekundu signálu).
+
+$$
+x_{RMS} = \sqrt{{1 \over 256} \sum_{i=1}^{256} x_i^2}
+\eqmark[eq:rms]
+$$
+
+\begtt
+signal = envelope;
+num_samples = length(signal);
+reduced_signal = arrayfun(@(i) ...
+    rms(signal(i:min(i + fs_shimmer - 1, num_samples))), ...
+    1:fs_shimmer:num_samples)';
+\endtt
+
+\midinsert
+\clabel [fig:signal_reduced] {Převzorkovaná obálka filtrovaného signálu}
+\picheight=8cm \cinspic signal_reduced.png
+\caption/f Převzorkovaná obálka filtrovaného signálu
+\endinsert
+
+Nyní můžeme porovnat náš zpracovaný signál z~přístroje Shimmer s~výsledkem z~"blackboxu" systému GETA. Vidíme, že po normalizaci průměrnou hodnotou, jsou si signály podobné. Odchylky lze očekávat vzhledem k~neideálním podmínkám měření.
+
+\midinsert
+\clabel [fig:signal_compare] {Srovnání signálů mezi přístroji}
+\picheight=8cm \cinspic signal_compare.png
+\caption/f Srovnání signálů mezi přístroji
+\endinsert
+
+\sec Vytvoření histogramů
+
+Histogramy hledáme pro násobky 5\% maximální síly. Nejdříve spočítáme prahy jednotlivých binů a následně přiřadíme hodnoty počtu vyskytujících se vzorků mezi prahy do binů. Hodnoty větší než je maximální síla zahrnujeme do binu větší než 95%. Následně pak normalizujeme velikosti histogramu tak, aby sčítal do 100.
+
+\begtt
+wanted = linspace(0, 95, 95/5+1);
+wanted = [wanted, 1000];
+thresholds = wanted / 100 * f_max;
+
+bins = zeros(size(wanted));
+
+for i = 1:length(signal)
+
+    for j = 1:length(thresholds) - 1
+
+        if (signal(i) >= thresholds(j) && signal(i) < thresholds(j + 1))
+            bins(j) = bins(j) + 1;
+
+            continue
+        end
+
+    end
+
+end
+
+max_value = max(bins) / 100;
+
+bins = bins ./ sum(bins) * 100;
+
+wanted(wanted == 1000) = 100;
+\endtt
+
+\midinsert
+\clabel [fig:histogram] {Histogram měření EMG}
+\picheight=8cm \cinspic histogram.png
+\caption/f Histogram měření EMG
+\endinsert
