@@ -5,7 +5,6 @@
     },
     "editor.wordWrap": "on",
     "latex-workshop.latex.recipes": [
-
         {
             "name": "arara",
             "tools": [
@@ -61,14 +60,15 @@
     "cSpell.words": [
         "Aktin",
         "aktinem",
+        "analergický",
+        "bioinformatika",
         "branchiální",
-        "costanzo",
-        "criswell",
+        "CMRR",
+        "elektrodiagnostické",
         "extrafuzální",
         "filamentu",
         "filamentů",
         "GETA",
-        "glref",
         "Holter",
         "invaginovány",
         "karpálního",
@@ -85,20 +85,34 @@
         "neuroanatomy",
         "Neuromuskulární",
         "neuromuskulárního",
-        "picw",
+        "Nyquistův",
         "polymerizován",
         "retikula",
         "retikulem",
         "retikulu",
         "sarkopazmatickým",
-        "secc",
         "tropomyosin",
         "tropomyosinem",
         "tropomyosinu",
         "troponin",
         "troponinu",
         "tubul",
-        "viscerální",
+        "viscerální"
+    ],
+    "cSpell.ignoreWords": [
+        "costanzo",
+        "criswell",
+        "eqmark",
+        "filtfreq",
+        "glref",
+        "hfil",
+        "lccc",
+        "picw",
+        "secc",
+        "tankisi",
         "zayia"
-    ]
+    ],
+    "[optex]": {
+        "editor.defaultFormatter": "nickfode.latex-formatter"
+    }
 }
