@@ -5,7 +5,10 @@
 
 \input ctustyle3
 
+\def\montht{\ifcase\month\or Leden \or Únor \or Březen \or Duben \or Květen \or Červen \or Červenec \or Srpen \or Září \or Říjen \or Listopad \or Prosinec\fi}
+
 \draft
+\savetoner
 
 \worktype [B/CZ]
 \faculty {F3}
@@ -15,7 +18,9 @@
 \author {Tomáš Kysela}
 \studyinfo {Lékařská elektronika a bioinformatika}
 
-\date {Leden 2024}
+\date {\montht \_the\_year}
+
+\supervisor{Ing. Jaromír Doležal, Ph.D.}
 
 \thanks {TODO}
 
@@ -41,6 +46,9 @@
 \input uvod
 
 \input emg
+
+\rfc{Doplnit nařízení}
+\rfc{Doplnit současný stav}
 
 \input experiment
 

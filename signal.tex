@@ -4,12 +4,6 @@
 
 Shimmer ukládá data do souborů csv. Je tedy třeba je načíst a vybrat korektní sloupce (18 a 20) vytvořit z~nich vektory.
 
-\begtt
-data = readtable(shimmer_file);
-channel1 = table2array(data(:, 18));
-channel2 = table2array(data(:, 20));
-\endtt
-
 \midinsert
 \clabel [fig:signal_raw] {Surová data z~přístroje Shimmer}
 \picheight=8cm \cinspic signal_raw.png
@@ -17,17 +11,6 @@ channel2 = table2array(data(:, 20));
 \endinsert
 
 Následně filtrujeme šumy a artefakty ze signálu. Volíme \glref{BP} na frekvencích 20 - 120 Hz. Pásmová zádrž není třeba použít díky napájení přístroje z~baterií. Využíváme butterworthův filter 6. řádu.
-
-\begtt
-high_pass_freq = 20;
-low_pass_freq = 120;
-
-[b, a] = butter(6, [high_pass_freq / fs_shimmer * 2 ...
-    low_pass_freq / fs_shimmer * 2]);
-
-channel1_bp = filter(b, a, channel1);
-channel2_bp = filter(b, a, channel2);
-\endtt
 
 \midinsert
 \clabel [fig:signal_bp] {Signál filtrovaný pásmovou propustí}
@@ -37,11 +20,6 @@ channel2_bp = filter(b, a, channel2);
 
 
 Následně spočítáme obálku signálu. Ta se rovná absolutní hodnotě signálu.
-
-\begtt
-envelope1=channel1_abs;
-envelope2=channel2_abs;
-\endtt
 
 \midinsert
 \clabel [fig:signal_envelope] {Obálka filtrovaného signálu}
@@ -55,14 +33,6 @@ $$
 x_{RMS} = \sqrt{{1 \over 256} \sum_{i=1}^{256} x_i^2}
 \eqmark[eq:rms]
 $$
-
-\begtt
-signal = envelope;
-num_samples = length(signal);
-reduced_signal = arrayfun(@(i) ...
-    rms(signal(i:min(i + fs_shimmer - 1, num_samples))), ...
-    1:fs_shimmer:num_samples)';
-\endtt
 
 \midinsert
 \clabel [fig:signal_reduced] {Převzorkovaná obálka filtrovaného signálu}
@@ -81,34 +51,6 @@ Nyní můžeme porovnat náš zpracovaný signál z~přístroje Shimmer s~výsle
 \sec Vytvoření histogramů
 
 Histogramy hledáme pro násobky 5\% maximální síly. Nejdříve spočítáme prahy jednotlivých binů a následně přiřadíme hodnoty počtu vyskytujících se vzorků mezi prahy do binů. Hodnoty větší než je maximální síla zahrnujeme do binu větší než 95%. Následně pak normalizujeme velikosti histogramu tak, aby sčítal do 100.
-
-\begtt
-wanted = linspace(0, 95, 95/5+1);
-wanted = [wanted, 1000];
-thresholds = wanted / 100 * f_max;
-
-bins = zeros(size(wanted));
-
-for i = 1:length(signal)
-
-    for j = 1:length(thresholds) - 1
-
-        if (signal(i) >= thresholds(j) && signal(i) < thresholds(j + 1))
-            bins(j) = bins(j) + 1;
-
-            continue
-        end
-
-    end
-
-end
-
-max_value = max(bins) / 100;
-
-bins = bins ./ sum(bins) * 100;
-
-wanted(wanted == 1000) = 100;
-\endtt
 
 \midinsert
 \clabel [fig:histogram] {Histogram měření EMG}
