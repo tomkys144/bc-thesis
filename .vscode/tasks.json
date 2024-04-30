@@ -5,8 +5,20 @@
             "label": "build",
             "type": "shell",
             "command": "arara",
-            "args": ["thesis.tex"],
-            "group": "build"
+            "args": [
+                "thesis.tex"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": true,
+                "revealProblems": "onProblem"
+            }
         }
     ]
 }

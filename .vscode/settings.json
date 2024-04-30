@@ -1,59 +1,10 @@
 {
     "libraryFilePath": "references.bib",
     "files.exclude": {
-        "logseq/*": true
+        "logseq/*": true,
+        "notes/": true
     },
     "editor.wordWrap": "on",
-    "latex-workshop.latex.recipes": [
-        {
-            "name": "arara",
-            "tools": [
-                "arara"
-            ]
-        },
-        {
-            "name": "optex * 3",
-            "tools": [
-                "optex",
-                "optex",
-                "optex"
-            ]
-        }
-    ],
-    "latex-workshop.latex.tools": [
-        {
-            "name": "optex",
-            "command": "optex",
-            "args": [
-                "%DOC%"
-            ],
-            "env": {}
-        },
-        {
-            "name": "arara",
-            "command": "echo",
-            "args": [
-                "--verbose",
-                "thesis.tex"
-            ],
-            "env": {}
-        }
-    ],
-    "latex-workshop.latex.autoBuild.run": "onSave",
-    "latex-workshop.synctex.afterBuild.enabled": true,
-    "latex-workshop.view.pdf.viewer": "external",
-    "latex-workshop.view.pdf.external.viewer.command": "okular",
-    "latex-workshop.view.pdf.external.viewer.args": [
-        "--unique",
-        "%PDF%"
-    ],
-    "latex-workshop.view.pdf.external.synctex.command": "okular",
-    "latex-workshop.view.pdf.external.synctex.args": [
-        "--unique",
-        "%PDF%#src:%LINE%%TEX%"
-    ],
-    "latex-workshop.latex.autoClean.run": "onBuilt",
-    "latex-workshop.latex.build.forceRecipeUsage": false,
     "cSpell.enableFiletypes": [
         "optex"
     ],
@@ -131,5 +82,5 @@
     ],
     "[optex]": {
         "editor.defaultFormatter": "nickfode.latex-formatter"
-    }
+    },
 }

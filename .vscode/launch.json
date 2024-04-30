@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "Build thesis",
+            "type": "f5anything",
+            "request": "launch",
+            "vscCommand": "workbench.action.tasks.build"
+        }
+    ]
+}
