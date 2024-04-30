@@ -1,12 +1,26 @@
 {
-    "libraryFilePath": "references.bib",
-    "files.exclude": {
-        "logseq/*": true,
-        "notes/": true
-    },
-    "editor.wordWrap": "on",
     "cSpell.enableFiletypes": [
         "optex"
+    ],
+    "cSpell.ignoreWords": [
+        "arara",
+        "begtt",
+        "costanzo",
+        "criswell",
+        "endtt",
+        "eqmark",
+        "filtfreq",
+        "glref",
+        "hecht",
+        "hfil",
+        "lccc",
+        "montht",
+        "optex",
+        "picw",
+        "secc",
+        "tankisi",
+        "zayia",
+        "ifcase"
     ],
     "cSpell.words": [
         "Aktin",
@@ -14,6 +28,7 @@
         "analergický",
         "bioinformatika",
         "branchiální",
+        "butterworthův",
         "CMRR",
         "elektrodiagnostické",
         "extenzor",
@@ -62,25 +77,50 @@
         "ventrální",
         "viscerální"
     ],
-    "cSpell.ignoreWords": [
-        "arara",
-        "begtt",
-        "costanzo",
-        "criswell",
-        "endtt",
-        "eqmark",
-        "filtfreq",
-        "glref",
-        "hecht",
-        "hfil",
-        "lccc",
-        "optex",
-        "picw",
-        "secc",
-        "tankisi",
-        "zayia"
-    ],
-    "[optex]": {
-        "editor.defaultFormatter": "nickfode.latex-formatter"
+    "editor.wordWrap": "wordWrapColumn",
+    "files.exclude": {
+        "logseq/*": true,
+        "notes/": true
     },
+    "libraryFilePath": "references.bib",
+    "[optex]": {
+        "editor.defaultFormatter": "tomkys144.optex-formatter",
+        "editor.formatOnSave": true
+    },
+    "todohighlight.include": [
+        "**/**.tex"
+    ],
+    "todohighlight.keywords": [
+        {
+            "text": "TODO:",
+            "regex": {
+                "pattern": "(?<=^|\"|\\s)\\\\rfc{TODO:?[^}]*}"
+            },
+            "color": "#0042d5",
+            "backgroundColor": "#ffbd2a",
+            "overviewRulerColor": "rgba(255,189,42,0.8)"
+        },
+        {
+            "text": "FIXME:",
+            "regex": {
+                "pattern": "(?<=^|\"|\\s)\\\\rfc{FIXME:?[^}]*}"
+            },
+            "color": "#0f9d6d",
+            "backgroundColor": "#f06292",
+            "overviewRulerColor": "rgba(240,98,146,0.8)"
+        },
+        {
+            "text": "REVIEW",
+            "regex": {
+                "pattern": "(?<=^|\"|\\s)\\\\rfc{REVIEW:?[^}]*}"
+            }
+        },
+        {
+            "text": "NOTE",
+            "regex": {
+                "pattern": "(?<=^|\"|\\s)\\\\rfc{NOTE:?[^}]*}"
+            },
+            "backgroundColor": "#bc009b"
+        },
+    ]
 }
