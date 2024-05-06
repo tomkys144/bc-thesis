@@ -42,14 +42,14 @@
 
     \sec Hardwarové zpracování signálu EMG
         \rfc{REVIEW: vymyslet možná lepší název}
-        Přístroje pro měření \glref{EMG} měří změny potenciálu v~jednotlivých svalech. Mohou být buď hodně obecné \rfc{TODO: Přeformulovat}, či měřit konkrétní svalová vlákna. To záleží primárně na použité elektrodě a na filtrovaných frekvencích. Samotný přístroj je v~podstatě voltmetr, který měří napětí velká řádově milivolty a následně je zesiluje na vhodné velikosti a potlačuje šum. Cesta signálu je poté z~elektrod přes diferenciální zesilovač a filtry do AD převodníku.
+        Přístroje pro měření \glref{EMG} měří změny potenciálu v~jednotlivých svalech. Specificita měření se může velmi lišit, od měření jednotlivých vláken, přes svaly, až po celé svalové skupiny. \rfc{DONE: Přeformulovat} To záleží primárně na použité elektrodě a na filtrovaných frekvencích. Samotný přístroj je v~podstatě voltmetr, který měří napětí velká řádově milivolty a následně je zesiluje na vhodné velikosti a potlačuje šum. Cesta signálu je poté z~elektrod přes diferenciální zesilovač a filtry do AD převodníku.
 
         \secc Elektrody
             Elektrody jsou způsob jak interagují elektrodiagnostické metody s~lidským tělem. Dají se dělit na dva hlavní typy: povrchové a invazivní.
 
             Povrchové elektrody začínaly jako měděné plošky či kroužky, dnes jsou tyto znovupoužitelné elektrody nahrazovány jednorázovými za účelem snížení rizika infekce. Existuje několik typů povrchových elektrod: elektrody s~přímým kontaktem, plovoucí elektrody, hydrogelové elektrody a páskové elektrody.
 
-            Elektrody s~přímým kontaktem jsou často měděné \rfc{REVIEW: Vážně?} a drží připevněné za pomoci leukoplasti. Jejich velkou výhodou je citlivost u~slabých signálů \glref{sEMG}, tedy například měření klidových svalových činností, naopak se nehodí pro měření dynamických pohybů z~důvodu omezení pohybu a jejich odlepování.
+            Elektrody s~přímým kontaktem bývaly dříve často měděné \rfc{DONE: Vážně?} a připevněny za pomoci leukoplasti. Jejich velkou výhodou je citlivost u~slabých signálů \glref{sEMG}, tedy například měření klidových svalových činností, naopak se nehodí pro měření dynamických pohybů z~důvodu omezení pohybu a jejich odlepování.
 
             Plovoucí elektrody jsou téměř přesným opakem elektrod s~přímým kontaktem. Samotná elektroda je zavěšena v~malém kalíšku přibližně 1 mm nad pokožkou. Jejich nevýhodou je náročnost přípravy měření a nižší citlivost. Avšak výhodou je nízké omezení pohybu a tak jsou vhodné na dynamické měření.
 
@@ -118,8 +118,8 @@
 
             \midinsert
                 \clabel [fig:flex-extenzor] {Schéma umístění elektrod pro měření flexoru a extenzoru předloktí}
-                \picw=5cm \cinspic flex_ext.png
-                \caption/f Schéma umístění elektrod pro měření flexoru a extenzoru předloktí \cite[criswell2011cram]
+                \picw=5cm \cinspic flex_ext.pdf
+                \caption/f Schéma umístění elektrod pro měření flexoru a extenzoru předloktí. Obrázek převzat od Kateřiny Doubkové; Data převzata z \cite[criswell2011cram]
             \endinsert
 
             \label [sec:electrodes-extenzor]
@@ -133,8 +133,8 @@
 
             \midinsert
                 \clabel [fig:extenzor] {Schéma umístění elektrod pro měření extenzorů předloktí}
-                \picw=3cm \cinspic extensor.png
-                \caption/f Schéma umístění elektrod pro měření extenzorů předloktí \cite[criswell2011cram]
+                \picw=3cm \cinspic extensor.pdf
+                \caption/f Schéma umístění elektrod pro měření extenzorů předloktí. Obrázek převzat od Kateřiny Doubkové; Data převzata z \cite[criswell2011cram]
             \endinsert
 
             \label [sec:electrodes-flexor]
@@ -148,6 +148,6 @@
 
             \midinsert
                 \clabel [fig:flexor] {Schéma umístění elektrod pro měření flexorů předloktí}
-                \picw=3cm \cinspic flexor.png
-                \caption/f Schéma umístění elektrod pro měření flexorů předloktí \cite[criswell2011cram]
+                \picw=3cm \cinspic flexor.pdf
+                \caption/f Schéma umístění elektrod pro měření flexorů předloktí. Obrázek převzat od Kateřiny Doubkové; Data převzata z \cite[criswell2011cram]
             \endinsert

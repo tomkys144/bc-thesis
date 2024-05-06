@@ -122,5 +122,12 @@
             },
             "backgroundColor": "#bc009b"
         },
+        {
+            "text": "DONE",
+            "regex": {
+                "pattern": "(?<=^|\"|\\s)\\\\rfc{DONE:?[^}]*}"
+            },
+            "backgroundColor": "#b8ffbe"
+        }
     ]
 }
