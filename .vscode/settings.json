@@ -1,4 +1,8 @@
 {
+    "[optex]": {
+        "editor.defaultFormatter": "tomkys144.optex-formatter",
+        "editor.formatOnSave": true
+    },
     "cSpell.enableFiletypes": [
         "optex"
     ],
@@ -31,6 +35,7 @@
         "butterworthův",
         "CMRR",
         "elektrodiagnostické",
+        "Elektrokardiografie",
         "extenzor",
         "extenzoru",
         "extenzorů",
@@ -41,6 +46,7 @@
         "flexoru",
         "flexorů",
         "flexory",
+        "Fmax",
         "GETA",
         "Holter",
         "invaginovány",
@@ -83,51 +89,50 @@
         "notes/": true
     },
     "libraryFilePath": "references.bib",
-    "[optex]": {
-        "editor.defaultFormatter": "tomkys144.optex-formatter",
-        "editor.formatOnSave": true
-    },
     "todohighlight.include": [
         "**/**.tex"
     ],
     "todohighlight.keywords": [
         {
-            "text": "TODO:",
+            "backgroundColor": "#ffbd2a",
+            "color": "#0042d5",
+            "overviewRulerColor": "rgba(255,189,42,0.8)",
             "regex": {
                 "pattern": "(?<=^|\"|\\s)\\\\rfc{TODO:?[^}]*}"
             },
-            "color": "#0042d5",
-            "backgroundColor": "#ffbd2a",
-            "overviewRulerColor": "rgba(255,189,42,0.8)"
+            "text": "TODO:"
         },
         {
-            "text": "FIXME:",
+            "backgroundColor": "#f06292",
+            "color": "#0f9d6d",
+            "overviewRulerColor": "rgba(240,98,146,0.8)",
             "regex": {
                 "pattern": "(?<=^|\"|\\s)\\\\rfc{FIXME:?[^}]*}"
             },
-            "color": "#0f9d6d",
-            "backgroundColor": "#f06292",
-            "overviewRulerColor": "rgba(240,98,146,0.8)"
+            "text": "FIXME:"
         },
         {
-            "text": "REVIEW",
             "regex": {
                 "pattern": "(?<=^|\"|\\s)\\\\rfc{REVIEW:?[^}]*}"
-            }
+            },
+            "text": "REVIEW"
         },
         {
-            "text": "NOTE",
+            "backgroundColor": "#bc009b",
             "regex": {
                 "pattern": "(?<=^|\"|\\s)\\\\rfc{NOTE:?[^}]*}"
             },
-            "backgroundColor": "#bc009b"
+            "text": "NOTE"
         },
         {
-            "text": "DONE",
+            "backgroundColor": "#b8ffbe",
             "regex": {
                 "pattern": "(?<=^|\"|\\s)\\\\rfc{DONE:?[^}]*}"
             },
-            "backgroundColor": "#b8ffbe"
+            "text": "DONE"
         }
-    ]
+    ],
+    "files.associations": {
+        "*.tex": "optex"
+    }
 }
