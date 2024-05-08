@@ -1,4 +1,8 @@
 {
+    "[bibtex]": {
+        "editor.defaultFormatter": "jrbentzon.bibtex-formatter",
+        "editor.formatOnSave": true
+    },
     "[optex]": {
         "editor.defaultFormatter": "tomkys144.optex-formatter",
         "editor.formatOnSave": true
@@ -81,9 +85,15 @@
         "tubul",
         "ulnaris",
         "ventrální",
-        "viscerální"
+        "verejného",
+        "viscerální",
+        "zdravia"
     ],
     "editor.wordWrap": "wordWrapColumn",
+    "files.associations": {
+        "*.tex": "optex",
+        "*.bib": "bibtex"
+    },
     "files.exclude": {
         "logseq/*": true,
         "notes/": true
@@ -131,8 +141,5 @@
             },
             "text": "DONE"
         }
-    ],
-    "files.associations": {
-        "*.tex": "optex"
-    }
+    ]
 }
