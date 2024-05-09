@@ -8,7 +8,10 @@
             "args": [
                 "thesis.tex"
             ],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "silent",

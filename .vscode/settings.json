@@ -18,6 +18,7 @@
         "endtt",
         "eqmark",
         "filtfreq",
+        "mzcr",
         "glref",
         "hecht",
         "hfil",
@@ -71,6 +72,7 @@
         "Nyquistův",
         "polymerizován",
         "pronaci",
+        "prubanu",
         "repetitivních",
         "repetitivními",
         "retikula",
@@ -91,8 +93,8 @@
     ],
     "editor.wordWrap": "wordWrapColumn",
     "files.associations": {
-        "*.tex": "optex",
-        "*.bib": "bibtex"
+        "*.bib": "bibtex",
+        "*.tex": "optex"
     },
     "files.exclude": {
         "logseq/*": true,
