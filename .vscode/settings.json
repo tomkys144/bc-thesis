@@ -91,7 +91,7 @@
         "viscerální",
         "zdravia"
     ],
-    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrap": "bounded",
     "files.associations": {
         "*.bib": "bibtex",
         "*.tex": "optex"

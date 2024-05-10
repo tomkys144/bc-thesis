@@ -1,6 +1,8 @@
 \chap Aktuální metodika měření
     \rfc{TODO: Doplnit současný stav}
-    V~současnosti probíhá měření při každé změně pracovních procesů certifikovanou laboratoří. Měří se každá činnost pro celou průměrnou směnu. Pokud probíhá řízená rotace pracovníků, kdy interval je maximálně jednodenní, pak se pro výpočet užívá časově vážený průměr všech pozic. Měření se provádí minimálně u~dvou osob stejného pohlaví, kdy se preferují praváci, kteří byli již dostatečně zapracováni. \cite[mzcr2022vestnik]
+    V~současnosti probíhá měření při každé změně pracovních procesů certifikovanou laboratoří. Za účelem sjednocení postupů při měření všemi laboratořemi, vydalo Ministerstvo zdravotnictví České republiky ve svém Věstníku 6/2022 Metodický návod k~zajištění jednotného postupu při autorizované měření, posuzování a interpretaci výsledků měření lokální svalové zátěže metodou integrované elektromyografie.
+
+    Podle daného Metodického návodu se měří každá činnost pro celou průměrnou směnu. Pokud probíhá řízená rotace pracovníků, kdy interval je maximálně jednodenní, pak se pro výpočet užívá časově vážený průměr všech pozic. Měření se provádí minimálně u~dvou osob stejného pohlaví, kdy se preferují praváci, kteří byli již dostatečně zapracováni. \cite[mzcr2022vestnik]
 
     \sec Standardní postup pro provádění měření
         Nejdříve se odmastí povrch pokožky abrazivní pastou, následně se elektrody umístí na předloktí pro měření svalových skupin flexorů a extenzorů, jak jsme popsali v~sekcích \ref[sec:electrodes-extenzor] a \ref[sec:electrodes-flexor]. Přístroj i elektrody lze případně připevnit pomocí náplasti či prubanu.
@@ -16,3 +18,22 @@
         \endinsert
 
     \sec Vyhodnocení měření
+        Naměřené hodnoty procent Fmax se časově převáží dle zaznamenaných časových charakteristik na průměrnou směnu. Do časového vážení se nezapočítává zákonná přestávka na jídlo a odpočinek. Bezpečnostní a technologické přestávky se do průměrné směny započítávají také a to hodnotou 5 \% Fmax, vykonával-li pracovník o~přestávce nenáročné drobné operace, a 3 \% nevykonával-li žádnou činnost. Činnosti jako úklid a příprava pracoviště se měřit nemusí, avšak ani v~takovém případě je nelze vynechat z~časového vážení a požívá se hodnota 5 až 8 \% Fmax. Výběr hodnoty provádí odhadem odborný pracovník autorizované fyziologické laboratoře v~závislosti na náročnosti dané činnosti.
+
+        \midinsert
+            \clabel [fig:geta-frek] {Ukázka frekvenční analýzy v~programu EMG Analyzer za užití přístroje EMG Holter}
+            \picw=8cm \cinspic GETA-frek.png
+            \caption/f Ukázka frekvenční analýzy v~programu EMG Analyzer za užití přístroje EMG Holter
+        \endinsert
+
+        Převážené průměrné výsledky jsou následně porovnány s~hygienickými limity. Svalové síly nad 70 \% Fmax jsou považovány za nadlimitní zátěž u~prací s~převahou dynamické složky, u~práce s~převahou statické složky je nadlimitní zátěž nad 45 \% Fmax.
+
+        V~případě, že na dané pozici pracují jak muži, tak ženy, nelze výsledek měření přepočítávat. Avšak pokud měřené uskutečněné u~žen nepřekračuje hygienické limity, pak lze výsledek interpretovat tak, že nepřekračuje hygienické limity ani u~mužů. Naopak pokud hotnoty naměřené u~mužů překračují nějaké hygienické limity, pak lze kategorizovat práci u~žen shodně jako u~mužů. V~případech, kdy měření u~žen překročilo hygienické limity, či měření u~mužů limity nepřekročilo, je třeba provést měření samostatně pro obě pohlaví.
+
+        \midinsert
+            \clabel [fig:geta-res] {Ukázka výsledků měření v~programu EMG Analyzer za užití přístroje EMG Holter}
+            \picw=8cm \cinspic GETA-res2.png
+            \caption/f Ukázka výsledků měření v~programu EMG Analyzer za užití přístroje EMG Holter \cite[geta2015analyzer]
+        \endinsert
+
+        Při hodnocení lokální svalové zátěže ve směnách delších než 480 minut se provádí navýšení limitů vynakládaných sil v~rozmezí 55-70 \% Fmax a průměrné směnové počty pohybů ruky a předloktí a to vždy o~2.5 \% za každých započatých 30 minut práce nad 480 minut. \cite[mzcr2022vestnik]
