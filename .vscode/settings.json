@@ -18,19 +18,20 @@
         "endtt",
         "eqmark",
         "filtfreq",
-        "mzcr",
         "glref",
         "hecht",
         "hfil",
+        "ifcase",
         "lccc",
         "montht",
+        "mzcr",
         "optex",
         "picw",
         "secc",
         "tankisi",
-        "zayia",
-        "ifcase"
+        "zayia"
     ],
+    "cSpell.language": "en,cs,sk",
     "cSpell.words": [
         "Aktin",
         "aktinem",
@@ -39,6 +40,7 @@
         "branchiální",
         "butterworthův",
         "CMRR",
+        "DNJZ",
         "elektrodiagnostické",
         "Elektrokardiografie",
         "extenzor",
@@ -73,6 +75,7 @@
         "polymerizován",
         "pronaci",
         "prubanu",
+        "repetitivní",
         "repetitivních",
         "repetitivními",
         "retikula",
@@ -87,9 +90,7 @@
         "tubul",
         "ulnaris",
         "ventrální",
-        "verejného",
-        "viscerální",
-        "zdravia"
+        "viscerální"
     ],
     "editor.wordWrap": "bounded",
     "files.associations": {
