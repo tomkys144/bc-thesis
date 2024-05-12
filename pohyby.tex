@@ -9,14 +9,10 @@
         \caption/f Vstupní signál posunutý do nuly
     \endinsert
 
-    \sec Hledání podobných vzorců
-        V~této metodě hledám opakující se cykly přímo z~měřeného signálu. Před samotným vyhledáváním odfiltruji stejnosměrnou složku pomocí inverzního Čebyševova filtru desátého řádu typu horní propust, s~mezním kmitočtem 0,35 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Přenosová funkce toho filtru je zakreslena v~obrázku \ref[fig:pohyb-corr-hp]. Filtrovaný signál je vykreslen v~obrázku \ref[fig:pohyb-corr-filter]
+    \label [sec:corr]
 
-        \midinsert
-            \clabel [fig:pohyb-corr-hp] {Přenosová funkce horní propusti 0,35 Hz}
-            \picheight=7cm \cinspic pohyb-corr-hp.png
-            \caption/f Přenosová funkce použité horní propusti s~mezním kmitočtem 0,35 Hz
-        \endinsert
+    \sec Vyhledání opakujících se vzorců
+        V~této metodě hledám opakující se cykly přímo z~měřeného signálu. Před samotným vyhledáváním odfiltruji stejnosměrnou složku pomocí inverzního Čebyševova filtru desátého řádu typu horní propust, s~mezním kmitočtem 0,35 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Filtrovaný signál je vykreslen v~obrázku \ref[fig:pohyb-corr-filter]
 
         \midinsert
             \clabel [fig:pohyb-corr-filter] {Signál filtrovaný horní propustí 0,35 Hz}
@@ -24,7 +20,7 @@
             \caption/f Signál filtrovaný horní propustí s~mezním kmitočtem 0,35 Hz
         \endinsert
 
-        Na tomto filtrovaném signálu používám křížovou autokorelaci s~maximálním posunem o~30 sekund. Jelikož je signál repetitivní, je možné z~autokorelační funkce odečíst periodu opakující se sekvence, která se ukazuje jako vzdálenost lokálních maxim. Lokální maxima hledám s~minimální vzdáleností 0,25 sekundy, abych předešel nalezení i periody případných šumů. Následně zvolím pouze ty vrcholy, jejichž prominence je větší či rovna průměrné prominenci, což zaručí, že vyberu celou periodu nikoli její část, tedy v~praxi vyberu celý cyklus pohybu tam a zpět, nikoli tam či zpět. To je nežádoucí, jelikož každý z~těchto pohybů může mít jinou sekvenci aktivací svalů v~zápěstí a tedy bych nalezl pouze tento pohyb a ne vždy ty zbylé. Nalezené vrcholy a autokorelační funkce jsou znázorněny v~obrázku \ref[fig:pohyb-corr-xcorr].
+        Na tomto filtrovaném signálu používám křížovou autokorelaci s~maximálním posunem o~30 sekund. Jelikož je signál repetitivní, je možné z~autokorelační funkce odečíst periodu opakující se sekvence, která se ukazuje jako vzdálenost lokálních maxim. Lokální maxima hledám s~minimální vzdáleností 1/4 sekundy, abych předešel nalezení i periody případných šumů. Následně zvolím pouze ty vrcholy, jejichž prominence je větší či rovna průměrné prominenci, což zaručí, že vyberu celou periodu nikoli její část, tedy v~praxi vyberu celý cyklus pohybu tam a zpět, nikoli tam či zpět. To je nežádoucí, jelikož každý z~těchto pohybů může mít jinou sekvenci aktivací svalů v~zápěstí a tedy bych nalezl pouze tento pohyb a ne vždy ty zbylé. Nalezené vrcholy a autokorelační funkce jsou znázorněny v~obrázku \ref[fig:pohyb-corr-xcorr].
 
         \midinsert
             \clabel [fig:pohyb-corr-xcorr] {Autokorelační funkce signálu s~nalezenými lokálními maximy}
@@ -32,10 +28,116 @@
             \caption/f Autokorelační funkce signálu s~nalezenými lokálními maximy
         \endinsert
 
-        Díky známé periodě cyklu, je možné vybrat vhodný úsek, který reprezentuje daný cyklus. Toho docílím tak, že naleznu všechna lokální minima, která jsou od sebe vzdálená alespoň \fraclig 3/4 periody. Následně z~nich vyberu to, které je nejblíže jejich mediánu. Vybraný bod označím jako počátek úseku a konec určím jako bod o~jednu periodu dále. Ukázka takto vybraného úseku je obrázek \ref[fig:pohyb-corr-sample]. Pro výběr lze použít chytřejší algoritmy, či nechat pracovníka laboratoře vybrat manuálně začátek, popřípadě i konec a přeskočit tak potřebu hledání periody, ukázalo se, že tato metoda, je dostatečně přesná.
+        Díky známé periodě cyklu, je možné vybrat vhodný úsek, který reprezentuje daný cyklus. Toho docílím tak, že naleznu všechna lokální minima, která jsou od sebe vzdálená alespoň 3/4 periody. Následně z~nich vyberu to, které je nejblíže jejich mediánu. Vybraný bod označím jako počátek úseku a konec určím jako bod o~jednu periodu dále. Ukázka takto vybraného úseku je obrázek \ref[fig:pohyb-corr-sample]. Pro výběr lze použít chytřejší algoritmy, či nechat pracovníka laboratoře vybrat manuálně začátek, popřípadě i konec a přeskočit tak potřebu hledání periody, ukázalo se, že tato metoda, je dostatečně přesná.
 
         \midinsert
             \clabel [fig:pohyb-corr-sample] {Vybraný vzorek reprezentující jednu periodu}
             \picheight=7cm \cinspic pohyb-corr-sample.png
             \caption/f Vybraný vzorek reprezentující jednu periodu
+        \endinsert
+
+        Nyní mám reprezentativní vzorek jednoho cyklu a mohu hledat ostatní cykly. Za tím účelem počítám korelaci vybraného vzorku s~pohybujícím se oknem stejné délky jako je vzorek. Velikost kroku je jeden bod. Spočítané korelační koeficienty ukazují podobnost daných úseků s~vybraným vzorkem. Nyní najdeme lokální maxima korelační koeficientů s~podmínkou, že jsou od sebe vzdálená alespoň 3/4 délky vzorku a z~jejich indexu dopočítáme počáteční indexy nalezených segmentů obsahující detekované cykly.
+
+        \midinsert
+            \clabel [fig:pohyb-corr-score] {Korelační koeficient pohybujícícho se okna a vzorku}
+            \picheight=7cm \cinspic pohyb-corr-score.png
+            \caption/f Korelační koeficient pohybujícícho se okna a vybraného vzorku s~detekovanými lokálními maximy
+        \endinsert
+
+        Na závěr vyberu kanál s~lepší detekcí. Zde jsem využíval možnosti výběru pracovníkem laboratoře. V~případě že je označena vlaječka pro interaktivní běh skriptu, pak pracovník vybere lepší kanál a uložím jeho výběr, v~opačném případě buď nahraji uložené dřívější rozhodnutí obsluhy, či vyberu kanál, kde je více detekovaných cyklů. Následně doplním hluchá místa informacemi z~druhého kanálu. Výsledek je ukázán v~obrázku \ref[fig:pohyb-corr-res]
+
+        \midinsert
+            \clabel [fig:pohyb-corr-res] {Výsledek metody vyhledání opakujících se vzorců}
+            \picheight=7cm \cinspic pohyb-corr-res.png
+            \caption/f Výsledek metody vyhledání opakujících se vzorců
+        \endinsert
+
+        Tato metoda má nevýhodu, že ji může rozhodit nízké \glref{SNR}, tedy nízký poměr signálu k~šumu. Nicméně v~takovýchto případech je velmi spolehlivá. Nedostatky této metody se ukazují v~tabulce \ref[tab:pohyb-corr-res] u~subjektů 10 a 11. U~subjektů 5 a 9 byly detekované cykly posunuty o~1/2 periody oproti manuálně označeným hodnotám, nicméně i tato data mohou být v~praxi užitečná pro pracovníka, kde potřebuje počet cyklů, nikoli přesné hranice.
+
+        \midinsert
+            \clabel [tab:pohyb-corr-res] {Výsledky metody vyhledání opakujících se vzorců}
+            \ctable {l c c c c} {
+                Subjekt & TP \hfil & FP\hfil & FN \hfil & Senzitivita (\%) \hfil
+                \crl \tskip 4pt
+                1 & 328 & 4& 12 & 96,47 \cr
+                2 & 680 & 8 & 4 & 99.42 \cr
+                3 & 684 & 12 & 0 & 100 \cr
+                4 & 316 & 8 & 12 & 96,34 \cr
+                5 & 8 & 316 & 324 & 2,41 \cr
+                6 & 612 & 8 & 56 & 91,62 \cr
+                7 & 288 & 12 & 56 & 83,72 \cr
+                8 & 320 & 12 & 20 & 94,12 \cr
+                9 & 0 & 332 & 332 & 0 \cr
+                10 & 4 & 4 & 536 & 0,74 \cr
+                11 & 12 & 0 & 532 & 2,21 \cr
+            }
+            \caption/t Výsledky metody vyhledání opakujících se vzorců; Volba kanálu proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
+        \endinsert
+
+        \label [sec:emg]
+
+    \sec Vyhledávání opakujících se vzorců v~obálce signálu
+        Jak jsem zmínil, minulá metoda je náchylná na velikost \glref{SNR}. Tuto nevýhodu lze částečně eliminovat vyhledáváním opakujících se vzorců místo v~samotném signálu v~jeho obálce singálu. Pro vyhledání obálky nejdříve přefiltruji signál Čebyševovým filtrem 10. řádu typu pásmová propust s~propustným pásmem 20 - 120 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Tento signál je ukázán v~obrázku \ref[fig:pohyb-emg-envelope]
+
+        Dalším krokem je vyhledání zmíněné obálky. K~tomu využívám \glref{RMS} filtr s~velikostí okna 1/2 sekundy. Dolní obálka je počítána stejně, avšak pro signál vynásobený -1.
+
+        \midinsert
+            \clabel [fig:pohyb-emg-envelope] {Signál filtrovaný pásmovou propustí 20 - 120 Hz a jeho obálka}
+            \picheight=7cm \cinspic pohyb-emg-envelope.png
+            \caption/f Signál filtrovaný pásmovou propustí 20 - 120 Hz a jeho obálka
+        \endinsert
+
+        Pro další výpočet používám pouze horní obálku, tedy ji opět posunu do nuly a následně postupuji podobně jako v~sekci \ref[sec:corr], tedy odstraním stejnosměrnou složku horní propustí s~mezní frekvencí 0,35 Hz, naleznu pomocí křížové korelace periodu repetic a vyberu reprezentativní vzorek a najdu všechny jemu podobné úseky. Následně pracovník laboratoře vybere vhodnější kanál a v~něm chybějící informace doplním z~druhého kanálu. Výsledně detekované úseky obálky jsou ukázány v~obrázku \ref[fig:pohyb-emg-envelope-res].
+
+        \midinsert
+            \clabel [fig:pohyb-emg-envelope-res] {Výsledek detekce opakujících se úseků obálky}
+            \picheight=7cm \cinspic pohyb-emg-envelope-res.png
+            \caption/f Výsledek detekce opakujících se úseků obálky
+        \endinsert
+
+        Tato metoda je značně spolehlivější u~signálu s~vyšším šumem, nicméně u~činností, kde je nízká vynaložená síla ztrácí dostatek dat. To lze pozorovat v~tabulce \ref[tab:pohyb-emg-res] u~subjektů 1 a 2. Naopak subjekty 10 a 11 mají na rozdíl od tabulky \ref[tab:pohyb-corr-res] velmi vysokou úspěšnost.
+
+        \midinsert
+            \clabel [tab:pohyb-emg-res] {Výsledky metody vyhledávání opakujících se vzorců v~obálce signálu}
+            \ctable {l c c c c} {
+                Subjekt & TP \hfil & FP\hfil & FN \hfil & Senzitivita (\%) \hfil
+                \crl \tskip 4pt
+                1 & 124 & 232 & 216 & 36,47 \cr
+                2 & 320 & 32 & 368 & 46,51 \cr
+                3 & 636 & 68 & 72 & 89,83 \cr
+                4 & 312 & 24 & 16 & 95,12 \cr
+                5 & 324 & 12 & 12 & 96,43 \cr
+                6 & 568 & 100 & 112 & 83,53 \cr
+                7 & 252 & 116 & 116 & 68,48 \cr
+                8 & 336 & 0 & 4 & 98,82 \cr
+                9 & 328 & 4 & 4 & 98,8 \cr
+                10 & 540 & 0 & 0 & 100 \cr
+                11 & 544 & 0 & 0 & 100 \cr
+            }
+            \caption/t Výsledky metody vyhledávání opakujících se vzorců v~obálce signálu; Volba kanálu proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
+        \endinsert
+
+    \sec Spojení metod
+        Jednitlivé dříve popsané metody mají své výhody a nevýhody a jsou úspěšnější pro jiný typ signálu. Díky tomu je třeba opět vybrat lepší metodu a následně doplnit případná chybějící data pomocí zbylých metod. K~tomu používám podobný způsob rozhodování jako při výberu lepších kanálů, kdy pracovník laboratoře buď vybere manuálně lepší metodu a jeho výběr se uloží pro příští spuštění skriptu na tom samé datasetu, popřípadě se použije metoda s~vyšším počtem cyklů.
+
+        Takto zvolený výsledek Kombinace těchto metod s~manuální volbou jak kanálů, tak metod, je velmi efektivní a dosahuje specificity 95 \%, jak je ukázáno v~tabulce \ref[tab:pohyb-res]. Ukazuje se také, že subjekty 1, 4 a 6 se zlepšili oproti tabulce \ref[tab:pohyb-corr-res] díky využití výsledků z~metody vyhledávání opakujících se vzorců na obálce.
+
+        \midinsert
+            \clabel [tab:pohyb-res] {Výsledky metodiky}
+            \ctable {l c c c c} {
+                Subjekt & TP \hfil & FP\hfil & FN \hfil & Senzitivita (\%) \hfil
+                \crl \tskip 4pt
+                1 & 348 & 16 & 0 & 100 \cr
+                2 & 680 & 8 & 4 & 99,42 \cr
+                3 & 688 & 24 & 0 & 100 \cr
+                4 & 324 & 8 & 4 & 98,78 \cr
+                5 & 332 & 20 & 8 & 97,65 \cr
+                6 & 696 & 20 & 12 & 98,31 \cr
+                7 & 348 & 40 & 20 & 94,57 \cr
+                8 & 336 & 4 & 4 & 98,82 \cr
+                9 & 328 & 8 & 4 & 98,8 \cr
+                10 & 540 & 0 & 0 & 100 \cr
+                11 & 544 & 0 & 0 & 100 \cr
+            }
+            \caption/t Výsledky metodiky s~kombinací metod \ref[sec:corr] a \ref[sec:emg]; Volba kanálů i metod proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
         \endinsert
