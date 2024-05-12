@@ -1,8 +1,7 @@
 \chap Vyhledávání pohybů v~signálu EMG
-    Jelikož aktuálně se pohyby detekují pouze manuálně na místě, popřípadě z~videozáznamu, rozhodl jsem se posunout aktuální metodiku právě v~této oblasti a vytvořit pomůcku pro pracovníky laboratoří fyziologie pro detekci pohybů. Vycházel jsem ze signálů změřených v~průběhu vývoje skriptu v~kapitole \ref[chap:signal], jelikož tato sekce ho doplňuje. Z~těchto měření využíváme pouze část s~pohybem puků popsaných v~sekci \ref[sec:experiment].Délka každého měření byla přibližně 3 minuty. Jelikož se zaměřujeme na prevenci nemocí z~povolání způsobených \glref[DNJZ] končetin, hledám opakující se cykly.
+    Jelikož aktuálně se pohyby detekují pouze manuálně na místě, popřípadě z~videozáznamu, rozhodl jsem se posunout aktuální metodiku právě v~této oblasti a vytvořit pomůcku pro pracovníky laboratoří fyziologie pro detekci pohybů. Vycházel jsem ze signálů změřených v~průběhu vývoje skriptu v~kapitole \ref[chap:signal], jelikož tato sekce ho doplňuje. Z~těchto měření využívám pouze část s~pohybem puků popsaných v~sekci \ref[sec:experiment]. Délka každého měření byla přibližně 3 minuty. Jelikož se zaměřujeme na prevenci nemocí z~povolání způsobených \glref[DNJZ] končetin, vycházel jsem z~předpokladu, že skript nebude úplně autonomní, avšak bude sloužit pouze jako pomůcka pracovníkovi, který například sám určí množství pohybů v~cyklu, či zvolí přesnější výsledek.
 
-    Samotný signál nejdříve posuneme tak, aby začínal v~0
-    (viz obrázek \ref[fig:pohyb-zero]) a následně využijeme několik metod, pro detekci signálu. Tyto metody jsou popsány v~následujích sekcích.
+    Před samotnou detekcí pohybů posunu odečtením prvního vzorku od signálu a tedy v~jsem předešel v~dalších úpravách a filtracích zákmitům (viz obrázek \ref[fig:pohyb-zero]). Následně navrhuji několik metod, pro detekci cyklů v~signálu. Tyto metody jsou popsány v~následujích sekcích.
 
     \midinsert
         \clabel [fig:pohyb-zero] {Vstupní signál posunutý do nuly}
@@ -11,24 +10,32 @@
     \endinsert
 
     \sec Hledání podobných vzorců
-        V~této metodě hledáme opakující se cykly přímo z~měřeného signálu. Před samotným vyhledáváním odfiltrujeme stejnosměrnou složku pomocí inverzního Čebyševova filtru desátého řádu typu horní propust, s~mezním kmitočtem 0.35 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Přenosová funkce toho filtru je zakreslena v~obrázku \ref[fig:pohyb-corr-hp]. Filtrovaný signál je vykreslen v~obrázku \ref[fig:pohyb-corr-filter]
+        V~této metodě hledám opakující se cykly přímo z~měřeného signálu. Před samotným vyhledáváním odfiltruji stejnosměrnou složku pomocí inverzního Čebyševova filtru desátého řádu typu horní propust, s~mezním kmitočtem 0,35 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Přenosová funkce toho filtru je zakreslena v~obrázku \ref[fig:pohyb-corr-hp]. Filtrovaný signál je vykreslen v~obrázku \ref[fig:pohyb-corr-filter]
 
         \midinsert
-            \clabel [fig:pohyb-corr-hp] {Přenosová funkce horní propusti 0.35 Hz}
+            \clabel [fig:pohyb-corr-hp] {Přenosová funkce horní propusti 0,35 Hz}
             \picheight=7cm \cinspic pohyb-corr-hp.png
-            \caption/f Přenosová funkce použité horní propusti s~mezním kmitočtem 0.35 Hz
+            \caption/f Přenosová funkce použité horní propusti s~mezním kmitočtem 0,35 Hz
         \endinsert
 
         \midinsert
-            \clabel [fig:pohyb-corr-filter] {Signál filtrovaný horní propustí 0.35 Hz}
+            \clabel [fig:pohyb-corr-filter] {Signál filtrovaný horní propustí 0,35 Hz}
             \picheight=7cm \cinspic pohyb-corr-filter.png
-            \caption/f Signál filtrovaný horní propustí s~mezním kmitočtem 0.35 Hz
+            \caption/f Signál filtrovaný horní propustí s~mezním kmitočtem 0,35 Hz
         \endinsert
 
-        Na tomto filtrovaném signálu používáme křížovou autokorelaci s~maximálním posunem o~30 sekund. Jelikož je signál repetitivní, je možné z~autokorelační funkce odečíst periodu opakující se sekvence, která se ukazuje jako vzdálenost lokálních maxim. Tedy nalezneme pomocí lokální maxima s~minimální vzdáleností 0.25 sekundy, abychom předešli nalezení pouze jemných zvlnění. Následně zvolíme pouze ty vrcholy, jejichž prominence je větší než průměrná, což zaručí, že vybereme celou periodu nikoli její část, tedy v~praxi vybereme celý cyklus pohybu tam a zpět, nikoli tam či zpět. To je nežádoucí, jelikož každý z~těchto pohybů využívá jinak svaly v~zápěstí a tedy bychom nenalezli jeho opak. Nalezené vrcholy a autokorelační funkce jsou znázorněny v~obrázku \ref[fig:pohyb-corr-xcorr].
+        Na tomto filtrovaném signálu používám křížovou autokorelaci s~maximálním posunem o~30 sekund. Jelikož je signál repetitivní, je možné z~autokorelační funkce odečíst periodu opakující se sekvence, která se ukazuje jako vzdálenost lokálních maxim. Lokální maxima hledám s~minimální vzdáleností 0,25 sekundy, abych předešel nalezení i periody případných šumů. Následně zvolím pouze ty vrcholy, jejichž prominence je větší či rovna průměrné prominenci, což zaručí, že vyberu celou periodu nikoli její část, tedy v~praxi vyberu celý cyklus pohybu tam a zpět, nikoli tam či zpět. To je nežádoucí, jelikož každý z~těchto pohybů může mít jinou sekvenci aktivací svalů v~zápěstí a tedy bych nalezl pouze tento pohyb a ne vždy ty zbylé. Nalezené vrcholy a autokorelační funkce jsou znázorněny v~obrázku \ref[fig:pohyb-corr-xcorr].
 
         \midinsert
             \clabel [fig:pohyb-corr-xcorr] {Autokorelační funkce signálu s~nalezenými lokálními maximy}
             \picheight=7cm \cinspic pohyb-corr-xcorr.png
             \caption/f Autokorelační funkce signálu s~nalezenými lokálními maximy
+        \endinsert
+
+        Díky známé periodě cyklu, je možné vybrat vhodný úsek, který reprezentuje daný cyklus. Toho docílím tak, že naleznu všechna lokální minima, která jsou od sebe vzdálená alespoň \fraclig 3/4 periody. Následně z~nich vyberu to, které je nejblíže jejich mediánu. Vybraný bod označím jako počátek úseku a konec určím jako bod o~jednu periodu dále. Ukázka takto vybraného úseku je obrázek \ref[fig:pohyb-corr-sample]. Pro výběr lze použít chytřejší algoritmy, či nechat pracovníka laboratoře vybrat manuálně začátek, popřípadě i konec a přeskočit tak potřebu hledání periody, ukázalo se, že tato metoda, je dostatečně přesná.
+
+        \midinsert
+            \clabel [fig:pohyb-corr-sample] {Vybraný vzorek reprezentující jednu periodu}
+            \picheight=7cm \cinspic pohyb-corr-sample.png
+            \caption/f Vybraný vzorek reprezentující jednu periodu
         \endinsert

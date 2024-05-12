@@ -29,7 +29,8 @@
         "picw",
         "secc",
         "tankisi",
-        "zayia"
+        "zayia",
+        "xcorr"
     ],
     "cSpell.language": "en,cs,sk",
     "cSpell.words": [
@@ -90,7 +91,7 @@
         "tubul",
         "ulnaris",
         "ventrální",
-        "viscerální"
+        "viscerální",
     ],
     "editor.wordWrap": "bounded",
     "files.associations": {
