@@ -1,0 +1,82 @@
+\chap Neuromuskulární systém
+    Neuromuskulární systém je základem pohybového aparátu člověka. Patří do něj kosterní svalstvo a nervy, které je ovládají.
+
+    \sec Kosterní svalstvo
+        Každý sval se skládá ze svalových vláken, která jsou shlukována do svazků. Každý svazek je následně držen pojivovou tkání. Samotné svazky poté nejsou často vedeny pouze jedním směrem, nýbrž jsou různě pootočeny tak, aby součet vektorů jejich sil dohromady tvořil požadovaný vektor.
+
+        Každé vlákno se následně skládá z~ještě menších dílků zvaných myofibrily. Myofibrily jsou obaleny sarkoplazmatickým retikulem a jsou invaginovány T-tubulami. Každá myofirbrila se následně skládá z~tlustého a tenkého filamentu.
+
+        Tlustý filament je tvořen myosinem. Ten se skládá z~šesti polypeptidů, kdy 2 tvoří jeden pár těžkých řetězců a 4 tvoří dva páry lehkých řetězců. Těžký řetězec je převážně stočen do alfa-šroubovice, kde tvoří ocásek myosinové molekule. Na konci každého z~těžkých řetězců spolu s~párem lehkých řetězců poté tvoří globulární myosinové hlavy.
+
+        Tenký filament se skládá převážně z~aktinu. Aktin je v~tenkém filamentu polymerizován do dvou vláken stočených do alfa-šroubovice. Na této šroubovici jsou místa k~vázání myosinu. Tato místa jsou při relaxaci zakrytá tropomyosinem. Na něm jsou v~pravidelných intervalech zavěšené komplexy troponinu. Jeho úkolem je při kontrakci navázat ionty vápníku, odstranit tropomyosin a dovolit navázání myosinových hlav na aktin.
+
+        Každá myofibrila je pruhované vlákno, ve kterém se jednotlivé sekce nazývají sarkomery. Ve prostřed sarkomery se vyskytuje A-pásmo. Zde se prolínají aktin a myosin. Ve středu A-pásma se nachází M-linie. Ty jsou tvořeny tmavě zbarvenými proteiny vázajícími jednotlivé molekuly myosinu k~sobě. Na hranicích sarkomery pak leží I-pásmo obsahující aktin. Uprostřed každého I-pásma se nachází Z-disk, který ohraničuje konce jednotlivých sarkomer. \cite[costanzo2018physiology]
+
+        \midinsert
+            \clabel [fig:sarkomera] {Schéma sarkomery}
+            \picw=7.5cm \cinspic sarkomera.png
+            \caption/f Schéma sarkomery \cite[luther2009vertebrate]
+        \endinsert
+
+    \sec Motorické neurony
+        Ve svalu by nikdy neprobíhala kontrakce nebýt motorických neuronů. Motorické neurony jsou nervové buňky, které slouží k~přenášení impulzů z~kortexu mozku a mozkového kmene ke svalu. Dělí se na dva typy, horní a dolní.
+        Horní motorické neurony jsou součástí \glref{CNS} a vedou signál z~kortexu mozku, mozkového kmene a mozečku míchou k~jednotlivým dolním motorickým neuronům.
+
+        Dolní motorické neurony jsou poté nervové buňky, které mají za úkol přenášet signál od horních nervových neuronů. Existují tři hlavní typy dolních motorických neuronů: somatické motorické neurony, branchiální motorické neurony a viscerální motorické neurony. Somatické motorické neurony se dále dělí na tři podtypy: alfa, beta a gamma. Alfa motorické neurony inervují extrafuzální svalová vlákna a jsou primárními nosiči vzruchu při kontrakci kosterních svalů. Jejich těla leží v~mozkovém kmeni či v~míše. Gamma motorické neurony naopak inervují svalová vřeténka a určují jejich citlivost. \cite[zayia2023neuroanatomy]
+
+    \sec Kontrakce a relaxace svalového vlákna
+        V~klidu jsou na myosinových hlavách připevněné molekuly \glref{ADP} a \glref{$\hbox{P}_i$}. Ty jsou záporně nabité. Stejně tak jsou záporně nabitá vlákna aktinu, a tím pádem se myosin s~aktinem slabě odpuzují. \cite[criswell2011cram]
+
+        \midinsert
+            \clabel [fig:kontrakce] {Kontrakce svalového vlákna}
+            \picw=7.5cm \cinspic Skeletal_Muscle_Contraction.jpg
+            \caption/f Kontrakce svalového vlákna \cite[menefee2020human]
+        \endinsert
+
+        Kontrakce začíná přijetím nervového akčního potenciálu, který se z~dolních motorických neuronů šíří do T-tubul. Depolarizace T-tubul způsobí otevření $\hbox{Ca}^{++}$ kanálků v~sarkoplazmatickém retikulu. Ty vypouštějí ionty $\hbox{Ca}^{++}$, které se navazují na troponin na tenkých filamentech, což posune tropomyosinem a odhalují se místa k~vázání myosinu. Nyní začíná tzv. cross-bridge cyklus. Vypustí se \glref{ADP} s~\glref{$\hbox{P}_i$} a myosinová hlava se přichytává k~aktinu a následně se posouvá směrem k~M-linii. To způsobuje pohyb aktinu a posun o~cca 10 nm. Následně se na hlavu přichytává molekula \glref{ATP}, která se štěpí na \glref{ADP} a \glref{$\hbox{P}_i$}. Energie z~reakce narovnává myosinovou hlavu do původní polohy a cyklus může začít znovu. \cite [costanzo2018physiology,criswell2011cram, menefee2020human]
+
+        Při relaxaci pak dochází ke snížení koncentrace $\hbox{Ca}^{++}$ za pomoci ATP-poháněných pump, které ionty odčerpávají zpět do sarkoplazmatického retikula, což způsobí opětovné navázání tropomyosinu na aktin a myosinová hlava se nemůže přichytit. Následně stejná polarita aktinu s~\glref{ADP} způsobuje odsunutí filamentů do počáteční polohy. \cite [costanzo2018physiology,criswell2011cram, menefee2020human]
+
+    \sec Modelování svalové činnosti
+        Činnost svalů se nejčastěji modeluje pomocí Hillova modelu. Ten se skládá ze sériového elastického prvku (\glref{SEC}), paralelního elastického prvku (\glref{PEC}) a kontrakčního prvku (\glref{CC}). Jejich uspořádání je ukázáno v~obrázku \ref[fig:hill-model]. \cite [nieminen1989methods]
+
+        \midinsert
+            \clabel [fig:hill-model] {Schéma Hillova modelu svalu}
+            \picw 7cm \cinspic hill-model.png
+            \caption/f Schéma Hillova modelu svalu \cite [rosen1999performances]
+        \endinsert
+
+        \glref{CC} a \glref{PEC} simulují samotný sval, kde \glref{PEC} představuje neaktivní vlákna a \glref{CC} aktivovaná vlákna. \glref{SEC} představuje úpon svalu, který se díky své tuhosti může občas vynechat. Vztah síly a prodloužení těchto komponentů je pak dána rovnicemi \ref[eq:fsec] a \ref[eq:fpec], kde $F_{SEC}$, $\Delta L_{SEC}$ a $F_{PEC}$, $\Delta L_{PEC}$ jsou síly a prodloužení prvků \glref{SEC}, resp. \glref{PEC} a ${SEC}_{sh}$ a ${PEC}_{sh}$ jsou tvarové funkce daných prvků.
+
+        $$
+            F_{SEC} = {{ F_{SEC\mathbox{\ max}} } \over { \exp\left({SEC}_{sh}\right)-1 } }\left(\exp\left({{{SEC}_{sh}\cdot\Delta L_{SEC}} \over {\Delta L_{SEC\mathbox{\ max}}}}\right)-1\right)
+            \eqmark[eq:fsec]
+        $$
+
+        $$
+            F_{PEC} = {{ F_{PEC\mathbox{\ max}} } \over { \exp\left({PEC}_{sh}\right)-1 } }\left(\exp\left({{{PEC}_{sh}\cdot\Delta L_{PEC}} \over {\Delta L_{PEC\mathbox{\ max}}}}\right)-1\right)
+            \eqmark[eq:fpec]
+        $$
+
+        \glref{CC} je charakterizován pomocí vztahů síla-délka a síla-rychlost, které jsou popsány rovnicí \ref[eq:fcc], kde $F_{CC}$ je síla vynaložená prvkem \glref{CC}, $f_{FL}$ a $f_{FV}$ jsou funkce pro vztahy síla-délka a síla-rychlost, $V_{CC}$ a $L_{CC}$ jsou rychlost prodlužování a délka \glref{CC}, $F_\mathbox{max}$ maximální síla \glref{CC} a $U$ normalizovaná úroveň aktivace.
+
+        $$
+            F_{CC} = f_{FV}\left(V_{CC}\right) \cdot f_{FL}\left(L_{CC}\right) \cdot F_\mathbox{max} \cdot
+U~\eqmark[eq:fcc]
+        $$
+
+        $f_{FL}$ je dána předpisem \ref[eq:ffl], kde $L_0$ je klidová délka komponetu \glref{CC}
+
+        $$
+            f_{FL} = \exp \left(-0{,}5\left({{\left({L_{CC}\over L_0}-1{,}05\right)}\over 0{,}19}\right)^2\right)
+            \eqmark[eq:ffl]
+        $$
+
+        $f_{FV}$ je dána předpisem \ref[eq:ffv], kde $V_\mathbox{max}$ je maximální rychlost komponenty \glref{CC} při dané úrovni aktivace $U$.
+
+        $$
+            f_{FV} = {{0{,}1433} \over {0{,}1074 + \exp\left(-1{,}409\sinh\left({3{,}2V_{CC}\over V_\mathbox{max}}+1{,}6\right)\right)}}
+            \eqmark[eq:ffv]
+        $$
+
+        Celková síla $F_m$ je pak dána součtem $F_{CC}$ a $F_{PEC}$, jelikož síla generovaná v~\glref{SEC} a \glref{CC} jsou stejné. \cite [rosen1999performances]

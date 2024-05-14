@@ -30,13 +30,20 @@
         "secc",
         "tankisi",
         "zayia",
-        "xcorr"
+        "xcorr",
+        "nieminen",
+        "fpec",
+        "fsec",
+        "emgwt",
+        "emgst"
     ],
     "cSpell.language": "en,cs,sk",
     "cSpell.words": [
         "Aktin",
         "aktinem",
         "analergický",
+        "ARIMA",
+        "ARMA",
         "bioinformatika",
         "branchiální",
         "butterworthův",
@@ -56,9 +63,12 @@
         "flexory",
         "Fmax",
         "GETA",
+        "Hillův",
         "Holter",
         "invaginovány",
         "karpálního",
+        "kontrakčního",
+        "Lindström",
         "marjoriehecht",
         "myofibrila",
         "myofibrily",
@@ -91,7 +101,7 @@
         "tubul",
         "ulnaris",
         "ventrální",
-        "viscerální",
+        "viscerální"
     ],
     "editor.wordWrap": "bounded",
     "files.associations": {
