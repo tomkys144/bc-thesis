@@ -35,22 +35,45 @@
             \endinsert
 
         \secc Filtry
-            V~zesíleném signálu se stále i po potlačení společné složky vyskytují šumy a artefakty. Artefakty jsou dvou typů, technologické a biologické. Mezi technologické se řadí "cable motion artefakt" (frekvence 1-10 Hz), šum z~nedokonalého spojení elektrody s~pokožkou danou převážně roztahováním pokožky či z~biomedicínských zařízení (jako je např. kardiostimulátor). Mezi biologické se řadí převážně šum z~okolních svalů (tzv. "crosstalk"). Tyto šumy je následně třeba odfiltrovat, či alespoň minimalizovat. Za tímto účelem se používá několik typů filtrů.
+            V~zesíleném signálu se stále i po potlačení společné složky vyskytují šumy a artefakty. Artefakty jsou dvou typů, technologické a biologické. Mezi technologické se řadí "cable motion artefakt" (frekvence 1-10 Hz), šum z~nedokonalého spojení elektrody s~pokožkou danou převážně roztahováním pokožky či z~biomedicínských zařízení (jako je např. kardiostimulátor). Mezi biologické se řadí převážně šum z~okolních svalů (tzv. "crosstalk"). Tyto šumy je následně třeba odfiltrovat, či alespoň minimalizovat. \cite[criswell2011cram, tankisi2020standards]
 
-            Pásmová zádrž se používá k~odstranění artefaktů vzniklých interferencí 50 Hz z~napájení. Tato zádrž je velmi úzká nato, aby odstranila pouze 50 Hz a jeho násobky, typicky široká jednotky Hz.
+            Filtry se primárně dělí na analogové a digitální.
+            Analogové filtry působí ve spojitém čase a lze je často snadno vytvořit pomocí diskrétních součástek, jako jsou kondenzátory, rezistory, iduktory či operační zesilovače. Zde se setkáváme s~dělením na pasivní a aktivní, kdy pasivní filtr se skládá pouze z~pasivních prvků, zatímco aktivní vyžaduje externí napájení, ale zase díky němu jsme schopni dosáhnout vyšší filtrace s~menším řádem.
 
-            Horní propust odstraňuje nižší frekvence. To odstraňuje pomalu se měnící signály, zkreslení průběhu signálu a hlavně snižuje zpoždění k~vrcholům průběhu. Naopak může sama způsobit vznik artefaktů z~filtrování.
+            Digitální filtry pak filtrují signál, který byl již diskretizován pomocí \glref{ADC} (viz sekce \ref[sec:adc]). Díky tomu lze dosáhnout i filtrací, které nejsou v~analogovém světě možné. Základní dělení digitálních filtrů pak je dle jejich impulzní odezvy a to na filtry s~konečnou impulzní odezvou (\glref{FIR}) a nekonečnou impulzní odezvou (\glref{IIR}).
 
-            Dolní propust naopak filtruje vysoké frekvence za účelem snížení amplitudy, šumu a snižuje náběžný čas.
+            \glref{FIR} filtry mají výstup závislý pouze na aktuálních a minulých hodnotách vstupního signálu. Jejich matematický popis je dán rovnicí \ref[eq:fir], princip je znázorněn obrázkem \ref[fig:fir]. Díky tomu mají lineární fázový posun, tedy všechny frekvence jsou posunuty stejně a zachovávají se fázové charakteristiky vstupního signálu. Další výhodou je jejich stabilita nezávisle na vstupním signálu. \cite[sarpal2020difference, hwe2023fir]
 
-            Obě tyto propusti se poté běžně spojují do pásmové propusti. Nejčastěji používané hodnoty jsou zaznamenány v~tabulce \ref[tab:filtfreq]. \cite[criswell2011cram, tankisi2020standards]
+            $$
+                y(n) = \sum_{k=0}^N b_k \cdot x(n-k)
+                \eqmark[eq:fir]
+            $$
 
-            \rfc{TODO: Předělat subsekci}
+            \midinsert
+                \clabel [fig:fir] {Schéma obecného FIR filtru}
+                \picw 7cm \cinspic fir.png
+                \caption/f Schéma obecného FIR filtru \cite[hwe2023fir]
+            \endinsert
+
+            Oproti tomu \glref{IIR} filtry využívají zpětnou vazbu a tedy k~výpočtu využívají i předchozí výstopní hodnoty. Výstupní hodnota je pak dána rovnicí \ref[eq:iir], což lze znázornit obrázkem \ref[fig:iir]. Jejich výhodou je primárně nižší využití paměti, nižší zpoždění či možnost analogové implementace. Naopak je třeba si dát pozor na nelineární fázový posun a hlavně na stabilitu systému. Zpětná vazba může systém rozkmitat a ačkoli vstup byl konečně velký, výstup může nabývat nekonečných hodnot. Stabilitu systému lze vyhodnotit pomocí koeficientů $a_k$, kde pro koeficienty uvnitř jednotkové kružnice, tedy $|a_k| < 1$ je systém stabilní. \cite[sarpal2020difference, hwe2023fir]
+
+            $$
+                y(n) = \sum_{k=0}^P b_k \cdot x(n-k) - sum_{k=1}^Q a_k \cdot y(n-k)
+                \eqmark[eq:iir]
+            $$
+
+            \midinsert
+                \clabel [fig:iir] {Schéma obecného IIR filtru}
+                \picw 7cm \cinspic iir.png
+                \caption/f Schéma obecného IIR filtru \cite[hwe2023fir]
+            \endinsert
+
+            \label[sec:adc]
 
         \secc AD převodník
             Pro digitální zpracování je třeba analogový signál diskretizovat. Toho dosahujeme pomocí AD převodníku, který přiřazuje analogovému signálu v~daných časech diskrétní hodnotu. Pro zachování kvality signálu je třeba mít dostatečné rozlišení a vysokou vzorkovací frekvenci. Na druhou stranu zbytečně vysoké rozlišení a frekvence způsobí zbytečně velké využití paměti.
 
-            Nyquistův teorém říká, že vzorkovací frekvence by měla být alespoň dvakrát tak velká, jak nejvyšší sledovaná frekvence. V~praxi je nejčastěji dvakrát až pětkrát vyšší, než nejvyšší sledovaná frekvence. Typicky používané frekvence v~\glref{EMG} jsou v~tabulce \ref[tab:filtfreq].
+            Nyquistův teorém říká, že vzorkovací frekvence by měla být alespoň dvakrát tak velká, jak nejvyšší sledovaná frekvence. V~praxi je nejčastěji dvakrát až pětkrát vyšší, než nejvyšší sledovaná frekvence. Typicky používané frekvence v~\glref{EMG} jsou v~tabulce \ref[tab:filtfreq]. V~této tabulce jsou uváděny hodnoty, které zachovávají všechny sledované informace, avšak různé využití \glref{EMG} využívají jiných informací, což způsobuje, že často jsou využívány nižší vzorkovací frekvence než uváděny v~tabulce.
 
             Rozlišení je třeba stanovit takové, aby se neztratily sledované změny v~signálu. Obecně uznávané minimum je 8 bitů, tedy 256 hodnot, jelikož jeden bit vyjadřuje znaménko. Dnes se často používají 24 bitové AD převodníky, které umí vyjádřit 16~777~216 hodnot. \cite[tankisi2020standards]
 
@@ -64,8 +87,6 @@
                 }
                 \caption/t Typické hodnoty amplitudy, frekvencí \glref{BP} a vzorkovací frekvence \cite[tankisi2020standards]
             \endinsert
-
-            \rfc{TODO: Upravit tabulku/dovysvětlit proč my 256 Hz}
 
     \sec Umístění elektrod
         Existuje mnoho možných poloh elktrod. Obecně je třeba vybrat vhodné místo pro E0, E1 a E2 a umístit je tak, aby mezi nimi byla měřená oblast, tedy typicky podél svalu, či svalové skupiny, popřípadě na opačné končetiny. Jelikož se v~rámci práce zabývám pouze měřením u~předloktí, uvedu zde možné umístění elektrod pro měření svalů předloktí.
