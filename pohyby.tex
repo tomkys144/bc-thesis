@@ -10,7 +10,6 @@
     \endinsert
 
     \label [sec:corr]
-
     \sec Vyhledání opakujících se vzorců
         V~této metodě hledám opakující se cykly přímo z~měřeného signálu. Před samotným vyhledáváním odfiltruji stejnosměrnou složku pomocí inverzního Čebyševova filtru desátého řádu typu horní propust, s~mezním kmitočtem 0,35 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Filtrovaný signál je vykreslen v~obrázku \ref[fig:pohyb-corr-filter]
 
@@ -20,7 +19,14 @@
             \caption/f Signál filtrovaný horní propustí s~mezním kmitočtem 0,35 Hz
         \endinsert
 
-        Na tomto filtrovaném signálu používám křížovou autokorelaci s~maximálním posunem o~30 sekund. Jelikož je signál repetitivní, je možné z~autokorelační funkce odečíst periodu opakující se sekvence, která se ukazuje jako vzdálenost lokálních maxim. Lokální maxima hledám s~minimální vzdáleností 1/4 sekundy, abych předešel nalezení i periody případných šumů. Následně zvolím pouze ty vrcholy, jejichž prominence je větší či rovna průměrné prominenci, což zaručí, že vyberu celou periodu nikoli její část, tedy v~praxi vyberu celý cyklus pohybu tam a zpět, nikoli tam či zpět. To je nežádoucí, jelikož každý z~těchto pohybů může mít jinou sekvenci aktivací svalů v~zápěstí a tedy bych nalezl pouze tento pohyb a ne vždy ty zbylé. Nalezené vrcholy a autokorelační funkce jsou znázorněny v~obrázku \ref[fig:pohyb-corr-xcorr].
+        Na tomto filtrovaném signálu používám křížovou autokorelaci s~maximálním posunem o~30 sekund dle rovnice \ref[eq:autocorr], kde $x[n]$ je filtrovaný signál a $f_s$ vzorkovací frekvence signálu. \cite[sedlacek1993zpracovani]
+
+        $$
+            R_{xx}\left(r\right) = \sum_{n=-30f_s}^{30f_s} x\left[r+n\right]s^*\left[n\right]
+            \eqmark[eq:autocorr]
+        $$
+
+        Jelikož je signál repetitivní, je možné z~autokorelační funkce odečíst periodu opakující se sekvence, která se ukazuje jako vzdálenost lokálních maxim. Lokální maxima hledám s~minimální vzdáleností 1/4 sekundy, abych předešel nalezení i periody případných šumů. Následně zvolím pouze ty vrcholy, jejichž prominence je větší či rovna průměrné prominenci, což zaručí, že vyberu celou periodu nikoli její část, tedy v~praxi vyberu celý cyklus pohybu tam a zpět, nikoli tam či zpět. To je nežádoucí, jelikož každý z~těchto pohybů může mít jinou sekvenci aktivací svalů v~zápěstí a tedy bych nalezl pouze tento pohyb a ne vždy ty zbylé. Nalezené vrcholy a autokorelační funkce jsou znázorněny v~obrázku \ref[fig:pohyb-corr-xcorr].
 
         \midinsert
             \clabel [fig:pohyb-corr-xcorr] {Autokorelační funkce signálu s~nalezenými lokálními maximy}
@@ -36,7 +42,14 @@
             \caption/f Vybraný vzorek reprezentující jednu periodu
         \endinsert
 
-        Nyní mám reprezentativní vzorek jednoho cyklu a mohu hledat ostatní cykly. Za tím účelem počítám korelaci vybraného vzorku s~pohybujícím se oknem stejné délky jako je vzorek. Velikost kroku je jeden bod. Spočítané korelační koeficienty ukazují podobnost daných úseků s~vybraným vzorkem. Nyní najdeme lokální maxima korelační koeficientů s~podmínkou, že jsou od sebe vzdálená alespoň 3/4 délky vzorku a z~jejich indexu dopočítáme počáteční indexy nalezených segmentů obsahující detekované cykly.
+        Nyní mám reprezentativní vzorek jednoho cyklu a mohu hledat ostatní cykly. Za tím účelem počítám korelaci vybraného vzorku s~pohybujícím se oknem stejné délky jako je vzorek dle rovnice \ref[eq:corr], kde $x$ je úsek vstupního signálu délky $n$, $y$ je referenční vzorek také délky $n$, $\overline{x}$ a $\overline{y}$ jsou průměry daných signálů. \cite[buxton2008correlation] Velikost kroku je jeden bod. Spočítané korelační koeficienty ukazují podobnost daných úseků s~vybraným vzorkem.
+
+        $$
+r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y}\right)} \over {\sqrt{\sum_{i=1}^n\left(x[i] - \overline{x}\right)^2 \sum_{i=1}^n \left(y[i]-\overline{y}\right)^2}}}
+\eqmark[eq:corr]
+        $$
+
+        Nyní najdeme lokální maxima korelační koeficientů s~podmínkou, že jsou od sebe vzdálená alespoň 3/4 délky vzorku a z~jejich indexu dopočítáme počáteční indexy nalezených segmentů obsahující detekované cykly.
 
         \midinsert
             \clabel [fig:pohyb-corr-score] {Korelační koeficient pohybujícícho se okna a vzorku}
@@ -75,7 +88,6 @@
         \endinsert
 
         \label [sec:emg]
-
     \sec Vyhledávání opakujících se vzorců v~obálce signálu
         Jak jsem zmínil, minulá metoda je náchylná na velikost \glref{SNR}. Tuto nevýhodu lze částečně eliminovat vyhledáváním opakujících se vzorců místo v~samotném signálu v~jeho obálce singálu. Pro vyhledání obálky nejdříve přefiltruji signál Čebyševovým filtrem 10. řádu typu pásmová propust s~propustným pásmem 20 - 120 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Tento signál je ukázán v~obrázku \ref[fig:pohyb-emg-envelope]
 
@@ -124,7 +136,7 @@
 
         \midinsert
             \clabel [tab:pohyb-res] {Výsledky metodiky}
-            \ctable {l c c c c} {
+            \ctable {lcccc} {
                 Subjekt & TP \hfil & FP\hfil & FN \hfil & Senzitivita (\%) \hfil
                 \crl \tskip 4pt
                 1 & 348 & 16 & 0 & 100 \cr
