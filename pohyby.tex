@@ -1,4 +1,4 @@
-\chap Vyhledávání pohybů v~signálu EMG
+\chap [chap:movement] Vyhledávání pohybů v~signálu EMG
     Jelikož aktuálně se pohyby detekují pouze manuálně na místě, popřípadě z~videozáznamu, rozhodl jsem se posunout aktuální metodiku právě v~této oblasti a vytvořit pomůcku pro pracovníky laboratoří fyziologie pro detekci pohybů. Vycházel jsem ze signálů změřených v~průběhu vývoje skriptu v~kapitole \ref[chap:signal], jelikož tato sekce ho doplňuje. Z~těchto měření využívám pouze část s~pohybem puků popsaných v~sekci \ref[sec:experiment]. Délka každého měření byla přibližně 3 minuty. Jelikož se zaměřujeme na prevenci nemocí z~povolání způsobených \glref[DNJZ] končetin, vycházel jsem z~předpokladu, že skript nebude úplně autonomní, avšak bude sloužit pouze jako pomůcka pracovníkovi, který například sám určí množství pohybů v~cyklu, či zvolí přesnější výsledek.
 
     Před samotnou detekcí pohybů posunu odečtením prvního vzorku od signálu a tedy v~jsem předešel v~dalších úpravách a filtracích zákmitům (viz obrázek \ref[fig:pohyb-zero]). Následně navrhuji několik metod, pro detekci cyklů v~signálu. Tyto metody jsou popsány v~následujích sekcích.
@@ -9,8 +9,7 @@
         \caption/f Vstupní signál posunutý do nuly
     \endinsert
 
-    \label [sec:corr]
-    \sec Vyhledání opakujících se vzorců
+    \sec [sec:corr] Vyhledání opakujících se vzorců
         V~této metodě hledám opakující se cykly přímo z~měřeného signálu. Před samotným vyhledáváním odfiltruji stejnosměrnou složku pomocí inverzního Čebyševova filtru desátého řádu typu horní propust, s~mezním kmitočtem 0,35 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Filtrovaný signál je vykreslen v~obrázku \ref[fig:pohyb-corr-filter]
 
         \midinsert
@@ -87,8 +86,7 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
             \caption/t Výsledky metody vyhledání opakujících se vzorců; Volba kanálu proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
         \endinsert
 
-        \label [sec:emg]
-    \sec Vyhledávání opakujících se vzorců v~obálce signálu
+    \sec [sec:emg] Vyhledávání opakujících se vzorců v~obálce signálu
         Jak jsem zmínil, minulá metoda je náchylná na velikost \glref{SNR}. Tuto nevýhodu lze částečně eliminovat vyhledáváním opakujících se vzorců místo v~samotném signálu v~jeho obálce singálu. Pro vyhledání obálky nejdříve přefiltruji signál Čebyševovým filtrem 10. řádu typu pásmová propust s~propustným pásmem 20 - 120 Hz a minimálním útlumem v~zádržném pásmu 40 dB. Tento signál je ukázán v~obrázku \ref[fig:pohyb-emg-envelope]
 
         Dalším krokem je vyhledání zmíněné obálky. K~tomu využívám \glref{RMS} filtr s~velikostí okna 1/2 sekundy. Dolní obálka je počítána stejně, avšak pro signál vynásobený -1.
@@ -129,7 +127,7 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
             \caption/t Výsledky metody vyhledávání opakujících se vzorců v~obálce signálu; Volba kanálu proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
         \endinsert
 
-    \sec Spojení metod
+    \sec [sec:merge_methods] Spojení metod
         Jednitlivé dříve popsané metody mají své výhody a nevýhody a jsou úspěšnější pro jiný typ signálu. Díky tomu je třeba opět vybrat lepší metodu a následně doplnit případná chybějící data pomocí zbylých metod. K~tomu používám podobný způsob rozhodování jako při výberu lepších kanálů, kdy pracovník laboratoře buď vybere manuálně lepší metodu a jeho výběr se uloží pro příští spuštění skriptu na tom samé datasetu, popřípadě se použije metoda s~vyšším počtem cyklů. Detekované cykly po spojení jsou znázorněny v~obrázku \ref[fig:pohyb-res].
 
         \midinsert
@@ -160,7 +158,7 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
             \caption/t Výsledky metodiky s~kombinací metod \ref[sec:corr] a \ref[sec:emg]; Volba kanálů i metod proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
         \endinsert
 
-    \sec Využití při měření jiných signálů
+    \sec [sec:other_signal] Využití při měření jiných signálů
     NAvrženou metodiku jsem zkusil aplikovat i na jiné signály, než pouze EMG a to na EKG, konkrétně na dataset ECG-ID. \cite[lugovaya2005biometric] Ukazuje se, že metodika by při ladění jednotlivých parametrů, jako je vzdálensot vrcholů, či jednotlivé prahy měla fungovat. Výsledek je ukázán v~obrázku \ref[fig:ecg].
 
 

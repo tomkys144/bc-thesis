@@ -1,8 +1,7 @@
-\label [chap:signal]
-\chap Zpracování signálu
+\chap [chap:signal] Zpracování signálu
     V~této kapile je popsán algoritmus pro zpracování signálu z~přístroje Shimmer, tak, aby výsledky byly stejné s~ekosystémem GETA. Algoritmus byl vytvořen týmem vedoucího práce a v~době psaní není publikován. Můj příspěvek bylo porovnání výstupů algoritmu s~výstupy z~GETA.
 
-    \sec Zpracování signálu z~přístroje Shimmer
+    \sec [sec:signal-shimmer] Zpracování signálu z~přístroje Shimmer
         Shimmer ukládá data do souborů csv. Je tedy třeba je načíst a vybrat korektní sloupce (18 a 20) vytvořit z~nich vektory.
 
         \midinsert
@@ -48,7 +47,7 @@
             \caption/f Srovnání signálů mezi přístroji
         \endinsert
 
-    \sec Vytvoření histogramů
+    \sec [sec:signal-histogram] Vytvoření histogramů
         Histogramy hledáme pro násobky 5 \% maximální síly. Nejdříve spočítáme prahy jednotlivých binů a následně přiřadíme hodnoty počtu vyskytujících se vzorků mezi prahy do binů. Hodnoty větší než je maximální síla zahrnujeme do binu větší než 95 \%. Následně pak normalizujeme velikosti histogramu tak, aby sčítal do 100.
 
         \midinsert

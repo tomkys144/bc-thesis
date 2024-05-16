@@ -1,9 +1,9 @@
-\chap Měření a modelování signálu EMG
+\chap [chap:emg] Měření a modelování signálu EMG
 
-    \sec Součásti přístroje pro měření EMG
+    \sec [sec:emg-hw] Součásti přístroje pro měření EMG
         Přístroje pro měření \glref{EMG} měří změny potenciálu v~jednotlivých svalech. Specificita měření se může velmi lišit, od měření jednotlivých vláken, přes svaly, až po celé svalové skupiny. To záleží primárně na použité elektrodě a na filtrovaných frekvencích. Samotný přístroj je v~podstatě voltmetr, který měří napětí velká řádově milivolty a následně je zesiluje na vhodné velikosti a potlačuje šum. Cesta signálu je poté z~elektrod přes diferenciální zesilovač a filtry do AD převodníku.
 
-        \secc Elektrody
+        \secc [sec:emg-hw-electrodes] Elektrody
             Elektrody jsou způsob jak interagují elektrodiagnostické metody s~lidským tělem. Dají se dělit na dva hlavní typy: povrchové a invazivní.
 
             Povrchové elektrody začínaly jako měděné plošky či kroužky, dnes jsou tyto znovupoužitelné elektrody nahrazovány jednorázovými za účelem snížení rizika infekce. Existuje několik typů povrchových elektrod: elektrody s~přímým kontaktem, plovoucí elektrody, hydrogelové elektrody a páskové elektrody.
@@ -16,7 +16,7 @@
 
             Invazivní elektrody jsou hlavně dvou typů: bipolární a monopolární elektrody. Bipolární elektroda jsou prakticky dvě elektrody v~jednom. Ve středu je drátková elektroda typicky z~platiny s~povrchem standardně velikosti mezi $0{,}01 \hbox{ a } 0{,}09 \hbox{ mm}^2$, typicky ${0{,}07} \hbox{ mm}^2$. Následně je obalená izolační vrstvou, a poté nerezovým povrchem který slouží jako druhá elektroda. Monopolární je naopak pouze nerezová jehla s~potahem z~teflonu s~odhaleným 1-5 mm hrotu, který slouží jako elektroda o~ploše cca $0{,}03 - 0{,}34 \hbox{ mm}^2$.\cite[criswell2011cram, tankisi2020standards]
 
-        \secc zesilovač
+        \secc [sec:emg-hw-amp] Zesilovač
             V~přístrojích pro měření EMG se využívá diferenciální zesilovač. To znamená, že nezesiluje napětí na vstupech, ale rozdíl těchto napětí. Toto zesílení se nazývá gain. V~ideálním zesilovači je zesílen pouze rozdíl. To však v~reálném zesilovači nelze, společnou složku pouze potlačuje. Kvalitu tohoto potlačení určuje parametr \glref{CMRR} daný vztahem \ref[eq:cmrr].
 
             $$
@@ -34,7 +34,7 @@
                 \caption/f Schéma fungování diferenciálního zesilovače; A) Rozdílové zesílení; B) Souhlasné zesílení \cite[tankisi2020standards]
             \endinsert
 
-        \secc Filtry
+        \secc [sec:emg-hw-filters] Filtry
             V~zesíleném signálu se stále i po potlačení společné složky vyskytují šumy a artefakty. Artefakty jsou dvou typů, technologické a biologické. Mezi technologické se řadí "cable motion artefakt" (frekvence 1-10 Hz), šum z~nedokonalého spojení elektrody s~pokožkou danou převážně roztahováním pokožky či z~biomedicínských zařízení (jako je např. kardiostimulátor). Mezi biologické se řadí převážně šum z~okolních svalů (tzv. "crosstalk"). Tyto šumy je následně třeba odfiltrovat, či alespoň minimalizovat. \cite[criswell2011cram, tankisi2020standards]
 
             Filtry se primárně dělí na analogové a digitální.
@@ -55,7 +55,7 @@
                 \caption/f Schéma obecného FIR filtru \cite[hwe2023fir]
             \endinsert
 
-            Oproti tomu \glref{IIR} filtry využívají zpětnou vazbu a tedy k~výpočtu využívají i předchozí výstopní hodnoty. Výstupní hodnota je pak dána rovnicí \ref[eq:iir], což lze znázornit obrázkem \ref[fig:iir]. Jejich výhodou je primárně nižší využití paměti, nižší zpoždění či možnost analogové implementace. Naopak je třeba si dát pozor na nelineární fázový posun a hlavně na stabilitu systému. Zpětná vazba může systém rozkmitat a ačkoli vstup byl konečně velký, výstup může nabývat nekonečných hodnot. Stabilitu systému lze vyhodnotit pomocí koeficientů $a_k$, kde pro koeficienty uvnitř jednotkové kružnice, tedy $|a_k| < 1$ je systém stabilní. \cite[sarpal2020difference, hwe2023fir]
+            Oproti tomu \glref{IIR} filtry využívají zpětnou vazbu a tedy k~výpočtu využívají i předchozí výstupní hodnoty. Výstupní hodnota je pak dána rovnicí \ref[eq:iir], což lze znázornit obrázkem \ref[fig:iir]. Jejich výhodou je primárně nižší využití paměti, nižší zpoždění či možnost analogové implementace. Naopak je třeba si dát pozor na nelineární fázový posun a hlavně na stabilitu systému. Zpětná vazba může systém rozkmitat a ačkoli vstup byl konečně velký, výstup může nabývat nekonečných hodnot. Stabilitu systému lze vyhodnotit pomocí koeficientů $a_k$, kde pro koeficienty uvnitř jednotkové kružnice, tedy $|a_k| < 1$ je systém stabilní. \cite[sarpal2020difference, hwe2023fir]
 
             $$
                 y(n) = \sum_{k=0}^P b_k \cdot x(n-k) - sum_{k=1}^Q a_k \cdot y(n-k)
@@ -69,7 +69,7 @@
             \endinsert
 
             \label[sec:adc]
-        \secc AD převodník
+        \secc [sec:emg-hw-adc] AD převodník
             Pro digitální zpracování je třeba analogový signál diskretizovat. Toho dosahujeme pomocí AD převodníku, který přiřazuje analogovému signálu v~daných časech diskrétní hodnotu. Pro zachování kvality signálu je třeba mít dostatečné rozlišení a vysokou vzorkovací frekvenci. Na druhou stranu zbytečně vysoké rozlišení a frekvence způsobí zbytečně velké využití paměti.
 
             Nyquistův teorém říká, že vzorkovací frekvence by měla být alespoň dvakrát tak velká, jak nejvyšší sledovaná frekvence. V~praxi je nejčastěji dvakrát až pětkrát vyšší, než nejvyšší sledovaná frekvence. Typicky používané frekvence v~\glref{EMG} jsou v~tabulce \ref[tab:filtfreq]. V~této tabulce jsou uváděny hodnoty, které zachovávají všechny sledované informace, avšak různé využití \glref{EMG} využívají jiných informací, což způsobuje, že často jsou využívány nižší vzorkovací frekvence než uváděny v~tabulce.
@@ -87,10 +87,10 @@
                 \caption/t Typické hodnoty amplitudy, frekvencí \glref{BP} a vzorkovací frekvence \cite[tankisi2020standards]
             \endinsert
 
-    \sec Umístění elektrod
+    \sec [sec:electrodes] Umístění elektrod
         Existuje mnoho možných poloh elktrod. Obecně je třeba vybrat vhodné místo pro E0, E1 a E2 a umístit je tak, aby mezi nimi byla měřená oblast, tedy typicky podél svalu, či svalové skupiny, popřípadě na opačné končetiny. Jelikož se v~rámci práce zabývám pouze měřením u~předloktí, uvedu zde možné umístění elektrod pro měření svalů předloktí.
 
-        \secc Měření flexoru a extenzoru předloktí
+        \secc [sec:electrodes-flex_ext] Měření flexoru a extenzoru předloktí
             Toto umístění slouží k~sledování celkového pnutí v~předloktí. Využívá se toho k~analýze zranění horní končetiny, např. z~repetitivních činností.
 
             První elektrodu umisťujeme nad extenzor zápěstí, tedy na dorzální stranu předloktí přibližně 5 cm od lokte. Vhodné místo nalezneme pohmatem, konkrétně položíme prsty na přibližnou lokaci a při extenzi zápěstí se jedná o~střed zvýrazněné svalové skupiny.
@@ -107,8 +107,7 @@
 
             \fnotetext{Převzato se souhlasem autorky z~neveřejných zdrojů}
 
-            \label [sec:electrodes-extenzor]
-        \secc Měření extenzorů zápěstí
+        \secc [sec:electrodes-extenzor] Měření extenzorů zápěstí
             Při tomto umístění měříme extenzory zápěstí, primárně extensor digitorum, dále pak extensor carpi radialis a extensor carpi ulnaris. Slouží k~posouzení činnosti extenzorů zápěstí za účelem předcházení a léčby zranění způsobených repetitivními činnostmi.
 
             Elektrody se umisťují nad extenzor zápěstí, tedy na dorzální stranu předloktí, přibližně 5 cm od lokte. Přesné umístění zjistíme pohmatem při extenzi zápěstí, kdy elektrody se umísťují do středu zvýrazněné svalové skupiny, 3-4 cm od sebe ve směru svalových vláken.
@@ -123,8 +122,7 @@
 
             \fnotetext{Převzato se souhlasem autorky z~neveřejných zdrojů}
 
-            \label [sec:electrodes-flexor]
-        \secc Měření flexoru zápěstí
+        \secc [sec:electrodes-flexor] Měření flexoru zápěstí
             Tímto umístěním měříme flexory zápěstí pro sledování činnosti flexorů zápěstí při prevenci a léčbě zranění zápěstí.
 
             Elektrody umístíme na flexory zápěstí, tedy ventrální stranu předloktí, přibližně 5 cm od lokte. Přesnou lokaci nalezneme pohmatem při flexi zápěstí, kdy elektrody dáváme do středu zvýrazněné svalové skupiny přibližně 3-4 cm od sebe ve směru svalových vláken.
@@ -139,7 +137,7 @@
 
             \fnotetext{Převzato se souhlasem autorky z~neveřejných zdrojů}
 
-    \sec Modelování signálu EMG
+    \sec [sec:emg-model] Modelování signálu EMG
         Jedním ze základních přístupů k~modelování signálu \glref{EMG} je zvažovat zvažovat jednotlivé akční potenciály motorických neuronů samostatně, bez ovlivnění od okolních a šumů, které se následně spojíme pomocí konvoluční funkce. V~modelu vyvozeném Sherifem a Gregorem v~roce 1986 se předpokládá, že průměrný počet nervových impulzů je závislý na čase a síle vyvinuté svalem. Pro jendotlivé tkáně a přístroje se vytváří přenosové funkce, nakonec se přidává i šum. Schéma takového modelu je ukázáno v~obrázku \ref[fig:sherif-gregor-model]. Generovaný signál EMG takovýmto modelem lze popsat rovnicí \ref[eq:emgst], zatímco změřený signál rovnicí \ref[eq:emgwt], kde $h(t)$ je přenosová funkce tkání, $K_1$ a $K_2$ konstanty, $r(t)$ přenosová funkce přístrojů a $n_1(t)$ s~$n_2(t)$ jsou šumové funkce. \cite[nieminen1989methods]
 
         $$
