@@ -130,9 +130,15 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
         \endinsert
 
     \sec Spojení metod
-        Jednitlivé dříve popsané metody mají své výhody a nevýhody a jsou úspěšnější pro jiný typ signálu. Díky tomu je třeba opět vybrat lepší metodu a následně doplnit případná chybějící data pomocí zbylých metod. K~tomu používám podobný způsob rozhodování jako při výberu lepších kanálů, kdy pracovník laboratoře buď vybere manuálně lepší metodu a jeho výběr se uloží pro příští spuštění skriptu na tom samé datasetu, popřípadě se použije metoda s~vyšším počtem cyklů.
+        Jednitlivé dříve popsané metody mají své výhody a nevýhody a jsou úspěšnější pro jiný typ signálu. Díky tomu je třeba opět vybrat lepší metodu a následně doplnit případná chybějící data pomocí zbylých metod. K~tomu používám podobný způsob rozhodování jako při výberu lepších kanálů, kdy pracovník laboratoře buď vybere manuálně lepší metodu a jeho výběr se uloží pro příští spuštění skriptu na tom samé datasetu, popřípadě se použije metoda s~vyšším počtem cyklů. Detekované cykly po spojení jsou znázorněny v~obrázku \ref[fig:pohyb-res].
 
-        Takto zvolený výsledek Kombinace těchto metod s~manuální volbou jak kanálů, tak metod, je velmi efektivní a dosahuje specificity 95 \%, jak je ukázáno v~tabulce \ref[tab:pohyb-res]. Ukazuje se také, že subjekty 1, 4 a 6 se zlepšili oproti tabulce \ref[tab:pohyb-corr-res] díky využití výsledků z~metody vyhledávání opakujících se vzorců na obálce.
+        \midinsert
+            \clabel [fig:pohyb-res] {Detekované cykly pomocí navržené metodiky}
+            \picheight=7cm \cinspic pohyb-result.png
+            \caption/f Detekované cykly pomocí navržené metodiky
+        \endinsert
+
+        Kombinace těchto metod s~manuální volbou jak kanálů, tak metod, je velmi efektivní a dosahuje specificity 95 \%, jak je ukázáno v~tabulce \ref[tab:pohyb-res]. Ukazuje se také, že subjekty 1, 4 a 6 se zlepšili oproti tabulce \ref[tab:pohyb-corr-res] díky využití výsledků z~metody vyhledávání opakujících se vzorců na obálce.
 
         \midinsert
             \clabel [tab:pohyb-res] {Výsledky metodiky}
@@ -152,4 +158,14 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
                 11 & 544 & 0 & 0 & 100 \cr
             }
             \caption/t Výsledky metodiky s~kombinací metod \ref[sec:corr] a \ref[sec:emg]; Volba kanálů i metod proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
+        \endinsert
+
+    \sec Využití při měření jiných signálů
+    NAvrženou metodiku jsem zkusil aplikovat i na jiné signály, než pouze EMG a to na EKG, konkrétně na dataset ECG-ID. \cite[lugovaya2005biometric] Ukazuje se, že metodika by při ladění jednotlivých parametrů, jako je vzdálensot vrcholů, či jednotlivé prahy měla fungovat. Výsledek je ukázán v~obrázku \ref[fig:ecg].
+
+
+        \midinsert
+            \clabel [fig:ecg] {Výsledek aplikace metodiky na signál ECG}
+            \picheight=7cm \cinspic ecg.png
+            \caption/f Výsledek aplikace metodiky na signál ECG
         \endinsert
