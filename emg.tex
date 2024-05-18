@@ -68,8 +68,7 @@
                 \caption/f Schéma obecného IIR filtru \cite[hwe2023fir]
             \endinsert
 
-            \label[sec:adc]
-        \secc [sec:emg-hw-adc] AD převodník
+        \secc [sec:adc] AD převodník
             Pro digitální zpracování je třeba analogový signál diskretizovat. Toho dosahujeme pomocí AD převodníku, který přiřazuje analogovému signálu v~daných časech diskrétní hodnotu. Pro zachování kvality signálu je třeba mít dostatečné rozlišení a vysokou vzorkovací frekvenci. Na druhou stranu zbytečně vysoké rozlišení a frekvence způsobí zbytečně velké využití paměti.
 
             Nyquistův teorém říká, že vzorkovací frekvence by měla být alespoň dvakrát tak velká, jak nejvyšší sledovaná frekvence. V~praxi je nejčastěji dvakrát až pětkrát vyšší, než nejvyšší sledovaná frekvence. Typicky používané frekvence v~\glref{EMG} jsou v~tabulce \ref[tab:filtfreq]. V~této tabulce jsou uváděny hodnoty, které zachovávají všechny sledované informace, avšak různé využití \glref{EMG} využívají jiných informací, což způsobuje, že často jsou využívány nižší vzorkovací frekvence než uváděny v~tabulce.
@@ -164,3 +163,5 @@
         $$
 
         Dalším možným přístupem je možné považovat signál \glref{EMG} za stochastický výstup systému řízeného Gaussovským šumem. Pro lineární fiting se pak používají různé modely, například AR (autoregresivní), ARMA (autoregresivní klouzavý průměr) či ARIMA (autoregresivní integrovaný klouzavý průměr). Hlavní výhodou této metody je popis všech důležitých vlastností \glref{EMG} signálu pomocí lineárního modelu. Tyto metody se uplatní primárně pro klasifikaci segmentů signálu \glref{EMG}.
+
+        \rfc{TODO: ale hlavne by v~teorii meli byt vsechny veci ktere pouzivate dale v~praxy, takze ta autokorelace by tu fakt mela mit vlastni kapitolu, a vysvetlit jak to funguje}

@@ -5,30 +5,29 @@
     \makeglos
 
 \app [chap:files] Seznam a popis přiložených souborů
-    \begitems
-    * {\tt data} - obsahuje csv soubory číslované podle subjektů
-    \begitems
-    * {\tt markers} - obsahuje mat soubory s~pozicemi ručně umístěných značek konců a začátků pohybů
-    \enditems
-    * {\tt meta} - obsahuje mat soubory s~jednotlivými rozhodnutími pracovníka
-    * {\tt main.m}
-    * {\tt apply_threshold.m}
-    * {\tt draw_corr.m}
-    * {\tt draw_envelope.m}
-    * {\tt draw_graph.m}
-    * {\tt draw_sample.m}
-    * {\tt draw_segments.m}
-    * {\tt draw_sim.m}
-    * {\tt envelope_calculation.m}
-    * {\tt evaluate_results.m}
-    * {\tt filtering.m}
-    * {\tt find_freq.m}
-    * {\tt find_sample.m}
-    * {\tt find_similar.m}
-    * {\tt get_markers.m}
-    * {\tt load_data.m}
-    * {\tt load_markers.m}
-    * {\tt merge_channels.m}
-    * {\tt merge_methods.m}
-    * {\tt start_zero.m}
-    \enditems
+    \dirtree{%
+        .1 /.
+        .2 data\DTcomment{obsahuje csv soubory číslované podle subjektů}.
+        .3 markers\DTcomment{obsahuje mat soubory s~ručně označenými cykly}.
+        .2 meta\DTcomment{obsahuje mat soubory s~jednotlivými rozhodnutími pracovníka}.
+        .2 main.m.
+        .2 apply_threshold.m.
+        .2 draw_corr.m.
+        .2 draw_envelope.m.
+        .2 draw_graph.m.
+        .2 draw_sample.m.
+        .2 draw_segments.m.
+        .2 draw_sim.m.
+        .2 envelope_calculation.m.
+        .2 evaluate_results.m.
+        .2 filtering.m.
+        .2 find_freq.m.
+        .2 find_sample.m.
+        .2 find_similar.m.
+        .2 get_markers.m.
+        .2 load_data.m.
+        .2 load_markers.m.
+        .2 merge_channels.m.
+        .2 merge_methods.m.
+        .2 start_zero.m.
+    }

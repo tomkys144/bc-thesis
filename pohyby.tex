@@ -1,5 +1,8 @@
 \chap [chap:movement] Vyhledávání pohybů v~signálu EMG
-    Jelikož aktuálně se pohyby detekují pouze manuálně na místě, popřípadě z~videozáznamu, rozhodl jsem se posunout aktuální metodiku právě v~této oblasti a vytvořit pomůcku pro pracovníky laboratoří fyziologie pro detekci pohybů. Vycházel jsem ze signálů změřených v~průběhu vývoje skriptu v~kapitole \ref[chap:signal], jelikož tato sekce ho doplňuje. Z~těchto měření využívám pouze část s~pohybem puků popsaných v~sekci \ref[sec:experiment]. Délka každého měření byla přibližně 3 minuty. Jelikož se zaměřujeme na prevenci nemocí z~povolání způsobených \glref[DNJZ] končetin, vycházel jsem z~předpokladu, že skript nebude úplně autonomní, avšak bude sloužit pouze jako pomůcka pracovníkovi, který například sám určí množství pohybů v~cyklu, či zvolí přesnější výsledek.
+    Jelikož aktuálně se pohyby detekují pouze \rfc{REVIEW: Vysvetlil bych, ze na to kouka ergonom ocitata je za casovy usek} manuálně na místě, popřípadě z~videozáznamu, rozhodl jsem se posunout aktuální metodiku právě v~této oblasti a vytvořit pomůcku pro pracovníky laboratoří fyziologie pro detekci pohybů. Vycházel jsem ze signálů změřených v~průběhu vývoje skriptu v~kapitole \ref[chap:signal], jelikož tato sekce ho doplňuje. Z~těchto měření využívám pouze část s~pohybem puků popsaných v~sekci \ref[sec:experiment]. Délka každého měření byla přibližně 3 minuty. Jelikož se zaměřujeme na prevenci nemocí z~povolání způsobených \glref{DNJZ} končetin, vycházel jsem z~předpokladu, že skript nebude úplně autonomní, avšak bude sloužit pouze jako pomůcka pracovníkovi, který například sám určí množství pohybů v~cyklu, či zvolí přesnější výsledek.
+
+    \rfc{TODO: Na zacatku kapitoly melo but. CO CHCI DELAT. NA JAKYCH DATECH. JAKE BUDU BUDOU VYSLEDKY}
+    %  tedy, ze aby bylo mozno to vyhodnotit, tak je treba si to naklikat rucne. Pak vysvetlit postup - ok, to tu je. Jak bych tam pridal i to EKG. Kdyz ne na zacetek. Tak na konec, mozna staci jen jeden snimek finalni segmentovane cervene zeleneho EKG a komentare, ze metoda je obecne pouzitelna na periodicky signaly. To EMG taky vypadat pro kazde pohyby jinak. Na a nakonec jsou vysledky, ty TP, FP. FN.
 
     Před samotnou detekcí pohybů posunu odečtením prvního vzorku od signálu a tedy v~jsem předešel v~dalších úpravách a filtracích zákmitům (viz obrázek \ref[fig:pohyb-zero]). Následně navrhuji několik metod, pro detekci cyklů v~signálu. Tyto metody jsou popsány v~následujích sekcích.
 
@@ -56,7 +59,7 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
             \caption/f Korelační koeficient pohybujícícho se okna a vybraného vzorku s~detekovanými lokálními maximy
         \endinsert
 
-        Na závěr vyberu kanál s~lepší detekcí. Zde jsem využíval možnosti výběru pracovníkem laboratoře. V~případě že je označena vlaječka pro interaktivní běh skriptu, pak pracovník vybere lepší kanál a uložím jeho výběr, v~opačném případě buď nahraji uložené dřívější rozhodnutí obsluhy, či vyberu kanál, kde je více detekovaných cyklů. Následně doplním hluchá místa informacemi z~druhého kanálu. Výsledek je ukázán v~obrázku \ref[fig:pohyb-corr-res]
+        Na závěr vyberu kanál s~lepší detekcí. Zde jsem využíval možnosti výběru pracovníkem laboratoře. V~případě že je nastaven parametr pro interaktivní běh skriptu na {\tt true}, pak pracovník vybere lepší kanál a uložím jeho výběr, v~opačném případě buď nahraji uložené dřívější rozhodnutí obsluhy, či vyberu kanál, kde je více detekovaných cyklů. Následně doplním hluchá místa informacemi z~druhého kanálu. Výsledek je ukázán v~obrázku \ref[fig:pohyb-corr-res]
 
         \midinsert
             \clabel [fig:pohyb-corr-res] {Výsledek metody vyhledání opakujících se vzorců}
@@ -159,7 +162,7 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
         \endinsert
 
     \sec [sec:other_signal] Využití při měření jiných signálů
-    NAvrženou metodiku jsem zkusil aplikovat i na jiné signály, než pouze EMG a to na EKG, konkrétně na dataset ECG-ID. \cite[lugovaya2005biometric] Ukazuje se, že metodika by při ladění jednotlivých parametrů, jako je vzdálensot vrcholů, či jednotlivé prahy měla fungovat. Výsledek je ukázán v~obrázku \ref[fig:ecg].
+    Navrženou metodiku jsem zkusil aplikovat i na jiné signály \rfc{TODO: Tady bych to vubec rozsiril a diskuze o~vyhodach a nevyhodach metody. Kde to fungovat bude a kde to fungovat nebude}, než pouze EMG a to na EKG, konkrétně na dataset ECG-ID. \cite[lugovaya2005biometric] Ukazuje se, že metodika by při ladění jednotlivých parametrů, jako je vzdálensot vrcholů, či jednotlivé prahy měla fungovat. \rfc{TODO: Divna formulace, by mohla pri ladeni parametru. Ukazal bych treba vysledky jako to dopadlo plne automaticky, a pak vysledky jako do dopadlo vyladene} Výsledek je ukázán v~obrázku \ref[fig:ecg].
 
 
         \midinsert
