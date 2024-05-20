@@ -1,6 +1,6 @@
 {
     "[bibtex]": {
-        "editor.defaultFormatter": "jrbentzon.bibtex-formatter",
+        "editor.defaultFormatter": "James-Yu.latex-workshop",
         "editor.formatOnSave": true
     },
     "[optex]": {
@@ -159,5 +159,10 @@
             },
             "text": "DONE"
         }
-    ]
+    ],
+    "latex-workshop.bibtex-format.sort.enabled": true,
+    "latex-workshop.bibtex-format.case": "UPPERCASE",
+    "latex-workshop.bibtex-format.sortby": [
+        "key"
+    ],
 }
