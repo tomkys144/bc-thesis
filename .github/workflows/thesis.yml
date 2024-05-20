@@ -24,6 +24,7 @@ jobs:
                     optex
                     vlna
                     lm-math
+                    dirtree
 
             - name: Checkout CTUstyle3
               run: |
