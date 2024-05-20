@@ -1,8 +1,11 @@
 \chap [chap:movement] Vyhledávání pohybů v~signálu EMG
-    Jelikož aktuálně se pohyby detekují pouze \rfc{REVIEW: Vysvetlil bych, ze na to kouka ergonom ocitata je za casovy usek} manuálně na místě, popřípadě z~videozáznamu, rozhodl jsem se posunout aktuální metodiku právě v~této oblasti a vytvořit pomůcku pro pracovníky laboratoří fyziologie pro detekci pohybů. Vycházel jsem ze signálů změřených v~průběhu vývoje skriptu v~kapitole \ref[chap:signal], jelikož tato sekce ho doplňuje. Z~těchto měření využívám pouze část s~pohybem puků popsaných v~sekci \ref[sec:experiment]. Délka každého měření byla přibližně 3 minuty. Jelikož se zaměřujeme na prevenci nemocí z~povolání způsobených \glref{DNJZ} končetin, vycházel jsem z~předpokladu, že skript nebude úplně autonomní, avšak bude sloužit pouze jako pomůcka pracovníkovi, který například sám určí množství pohybů v~cyklu, či zvolí přesnější výsledek.
+    Jelikož, jak bylo popsáno v~části \ref[sec:current-measurement], jsou pohyby detekovány pracovníkem akreditované laboratoře fyziologie práce pouze manuálně na místě, popřípadě z~videozáznamu, rozhodl jsem se posunout aktuální metodiku právě v~této oblasti a vytvořit pomůcku pro pracovníky laboratoří fyziologie pro detekci pohybů.
 
-    \rfc{TODO: Na zacatku kapitoly melo but. CO CHCI DELAT. NA JAKYCH DATECH. JAKE BUDU BUDOU VYSLEDKY}
-    %  tedy, ze aby bylo mozno to vyhodnotit, tak je treba si to naklikat rucne. Pak vysvetlit postup - ok, to tu je. Jak bych tam pridal i to EKG. Kdyz ne na zacetek. Tak na konec, mozna staci jen jeden snimek finalni segmentovane cervene zeleneho EKG a komentare, ze metoda je obecne pouzitelna na periodicky signaly. To EMG taky vypadat pro kazde pohyby jinak. Na a nakonec jsou vysledky, ty TP, FP. FN.
+    Cílem je vytvořit pomůcku pro pracovníka akreditované laboratoře fyziologie pro počítání pohybů, která detekuje pohyby, resp. pohybové cykly ve změřeném signálu EMG. Výsledkem je tedy seznam indexů začátků a konců jednotlivých pohybů, ze kterých jde jednak zobrazit zvýrazněné pohyby a zároveň lze z~délky seznamu zjistit počet pohybů, resp. pohybových cyklů.
+
+    Jelikož se jedná o~doplněk k~současné metodice, nikoli její náhradu, kterou ani Ministerstvo zdravotnictví ČR v~závazném metodickém návodu nedovoluje, rozhodl jsem se pro několik kompromisů. Prvním z~nich je detekce cyklů, nikoli pohybů. Důvodem pro to je, že každý pohyb má jinou sekvenci aktivace svalů, tedy směr tam není pouze opačný oproti zpět. Přesný počet pohybů lze pak dopočítat vynásobením cyklů konstantou, která vyjadřuje počet pohybů v~daném cyklu. Dalším kompromisem byla volba úrovně automatizace a to na poloautomatickou, kdy pracovník na konci vybere lépe sedící kanály a metody.
+
+    Vycházel jsem ze signálů změřených v~průběhu vývoje skriptu v~kapitole \ref[chap:signal], jelikož tato sekce ho doplňuje. Z~těchto měření využívám pouze část s~pohybem puků popsaných v~sekci \ref[sec:experiment]. Délka každého měření byla přibližně 3 minuty. U~těchto měření jsem pak označil manuálně začátky a konce cyklů, které jsem poté využíval k~testování přesnosti algoritmu.
 
     Před samotnou detekcí pohybů posunu odečtením prvního vzorku od signálu a tedy v~jsem předešel v~dalších úpravách a filtracích zákmitům (viz obrázek \ref[fig:pohyb-zero]). Následně navrhuji několik metod, pro detekci cyklů v~signálu. Tyto metody jsou popsány v~následujích sekcích.
 
@@ -47,11 +50,11 @@
         Nyní mám reprezentativní vzorek jednoho cyklu a mohu hledat ostatní cykly. Za tím účelem počítám korelaci vybraného vzorku s~pohybujícím se oknem stejné délky jako je vzorek dle rovnice \ref[eq:corr], kde $x$ je úsek vstupního signálu délky $n$, $y$ je referenční vzorek také délky $n$, $\overline{x}$ a $\overline{y}$ jsou průměry daných signálů. \cite[buxton2008correlation] Velikost kroku je jeden bod. Spočítané korelační koeficienty ukazují podobnost daných úseků s~vybraným vzorkem.
 
         $$
-r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y}\right)} \over {\sqrt{\sum_{i=1}^n\left(x[i] - \overline{x}\right)^2 \sum_{i=1}^n \left(y[i]-\overline{y}\right)^2}}}
-\eqmark[eq:corr]
+            r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y}\right)} \over {\sqrt{\sum_{i=1}^n\left(x[i] - \overline{x}\right)^2 \sum_{i=1}^n \left(y[i]-\overline{y}\right)^2}}}
+            \eqmark[eq:corr]
         $$
 
-        Nyní najdeme lokální maxima korelační koeficientů s~podmínkou, že jsou od sebe vzdálená alespoň 3/4 délky vzorku a z~jejich indexu dopočítáme počáteční indexy nalezených segmentů obsahující detekované cykly.
+        Nyní najdeme lokální maxima korelační koeficientů s~podmínkou, že jsou od sebe vzdálená alespoň 2/3 délky vzorku a z~jejich indexu dopočítáme počáteční indexy nalezených segmentů obsahující detekované cykly.
 
         \midinsert
             \clabel [fig:pohyb-corr-score] {Korelační koeficient pohybujícícho se okna a vzorku}
@@ -71,22 +74,26 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
 
         \midinsert
             \clabel [tab:pohyb-corr-res] {Výsledky metody vyhledání opakujících se vzorců}
+            \caption/t Výsledky metody vyhledání opakujících se vzorců
+
             \ctable {l c c c c} {
-                Subjekt & TP \hfil & FP\hfil & FN \hfil & Senzitivita (\%) \hfil
-                \crl \tskip 4pt
-                1 & 328 & 4& 12 & 96,47 \cr
-                2 & 680 & 8 & 4 & 99.42 \cr
-                3 & 684 & 12 & 0 & 100 \cr
-                4 & 316 & 8 & 12 & 96,34 \cr
-                5 & 8 & 316 & 324 & 2,41 \cr
-                6 & 612 & 8 & 56 & 91,62 \cr
-                7 & 288 & 12 & 56 & 83,72 \cr
-                8 & 320 & 12 & 20 & 94,12 \cr
-                9 & 0 & 332 & 332 & 0 \cr
-                10 & 4 & 4 & 536 & 0,74 \cr
-                11 & 12 & 0 & 532 & 2,21 \cr
+                Subjekt & TP\fmark{a}\hfil & FP\fmark{b}\hfil & FN\fmark{c}\hfil & Senzitivita (\%) \hfil \crl \tskip 4pt
+                1 & 164 & 2 & 6 & 96,47 \cr
+                2 & 340 & 4 & 2 & 99.42 \cr
+                3 & 342 & 6 & 0 & 100 \cr
+                4 & 158 & 4 & 6 & 96,34 \cr
+                5 & 4 & 158 & 162 & 2,41 \cr
+                6 & 306 & 4 & 28 & 91,62 \cr
+                7 & 144 & 6 & 28 & 83,72 \cr
+                8 & 160 & 6 & 10 & 94,12 \cr
+                9 & 0 & 166 & 166 & 0 \cr
+                10 & 2 & 2 & 268 & 0,74 \cr
+                11 & 6 & 0 & 266 & 2,21 \cr
             }
-            \caption/t Výsledky metody vyhledání opakujících se vzorců; Volba kanálu proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
+            \_firstnoindent \fmark{\ } Volba kanálu proběhla manuálně\nl
+            \fmark{a} Počet spěšně detekovaných cyklů\nl
+            \fmark{b} Počet nepravdivě detekovaných cyklů\nl
+            \fmark{c} Počet nedetekovaných pohybů
         \endinsert
 
     \sec [sec:emg] Vyhledávání opakujících se vzorců v~obálce signálu
@@ -112,22 +119,26 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
 
         \midinsert
             \clabel [tab:pohyb-emg-res] {Výsledky metody vyhledávání opakujících se vzorců v~obálce signálu}
+            \caption/t Výsledky metody vyhledávání opakujících se vzorců v~obálce signálu
+
             \ctable {l c c c c} {
-                Subjekt & TP \hfil & FP\hfil & FN \hfil & Senzitivita (\%) \hfil
-                \crl \tskip 4pt
-                1 & 124 & 232 & 216 & 36,47 \cr
-                2 & 320 & 32 & 368 & 46,51 \cr
-                3 & 636 & 68 & 72 & 89,83 \cr
-                4 & 312 & 24 & 16 & 95,12 \cr
-                5 & 324 & 12 & 12 & 96,43 \cr
-                6 & 568 & 100 & 112 & 83,53 \cr
-                7 & 252 & 116 & 116 & 68,48 \cr
-                8 & 336 & 0 & 4 & 98,82 \cr
-                9 & 328 & 4 & 4 & 98,8 \cr
-                10 & 540 & 0 & 0 & 100 \cr
-                11 & 544 & 0 & 0 & 100 \cr
+                Subjekt & TP\fmark{a}\hfil & FP\fmark{b}\hfil & FN\fmark{c}\hfil & Senzitivita (\%) \hfil \crl \tskip 4pt
+                1 & 64 & 118 & 108 & 37,21 \cr
+                2 & 160 & 16 & 184 & 46,51 \cr
+                3 & 318 & 34 & 36 & 89,83 \cr
+                4 & 156 & 12 & 8 & 95,12 \cr
+                5 & 162 & 6 & 6 & 96,43 \cr
+                6 & 284 & 50 & 56 & 83,53 \cr
+                7 & 126 & 58 & 58 & 68,48 \cr
+                8 & 168 & 0 & 2 & 98,82 \cr
+                9 & 164 & 2 & 2 & 98,8 \cr
+                10 & 270 & 2 & 0 & 100 \cr
+                11 & 272 & 0 & 0 & 100 \cr
             }
-            \caption/t Výsledky metody vyhledávání opakujících se vzorců v~obálce signálu; Volba kanálu proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
+            \_firstnoindent \fmark{\ } Volba kanálu proběhla manuálně\nl
+            \fmark{a} Počet spěšně detekovaných cyklů\nl
+            \fmark{b} Počet nepravdivě detekovaných cyklů\nl
+            \fmark{c} Počet nedetekovaných pohybů
         \endinsert
 
     \sec [sec:merge_methods] Spojení metod
@@ -143,27 +154,53 @@ r_{xy} = {{\sum_{k=1}^n\left(x[k] - \overline{x}\right) \left(y[i] - \overline{y
 
         \midinsert
             \clabel [tab:pohyb-res] {Výsledky metodiky}
+            \caption/t Výsledky metodiky s~kombinací metod \ref[sec:corr] a \ref[sec:emg]
+
             \ctable {lcccc} {
-                Subjekt & TP \hfil & FP\hfil & FN \hfil & Senzitivita (\%) \hfil
-                \crl \tskip 4pt
-                1 & 348 & 16 & 0 & 100 \cr
-                2 & 680 & 8 & 4 & 99,42 \cr
-                3 & 688 & 24 & 0 & 100 \cr
-                4 & 324 & 8 & 4 & 98,78 \cr
-                5 & 332 & 20 & 8 & 97,65 \cr
-                6 & 696 & 20 & 12 & 98,31 \cr
-                7 & 348 & 40 & 20 & 94,57 \cr
-                8 & 336 & 4 & 4 & 98,82 \cr
-                9 & 328 & 8 & 4 & 98,8 \cr
-                10 & 540 & 0 & 0 & 100 \cr
-                11 & 544 & 0 & 0 & 100 \cr
+                Subjekt & TP\fmark{a}\hfil & FP\fmark{b}\hfil & FN\fmark{c}\hfil & Senzitivita (\%) \hfil \crl \tskip 4pt
+                1 & 174 & 10& 0 & 100 \cr
+                2 & 340 & 4 & 2 & 99,42 \cr
+                3 & 344 & 12 & 0 & 100 \cr
+                4 & 162 & 4 & 2 & 98,78 \cr
+                5 & 166 & 10 & 4 & 97,65 \cr
+                6 & 348 & 10 & 6 & 98,31 \cr
+                7 & 174 & 20 & 10 & 94,57 \cr
+                8 & 168 & 2 & 2 & 98,82 \cr
+                9 & 164 & 2 & 2 & 98,8 \cr
+                10 & 270 & 0 & 0 & 100 \cr
+                11 & 272 & 0 & 0 & 100 \cr
             }
-            \caption/t Výsledky metodiky s~kombinací metod \ref[sec:corr] a \ref[sec:emg]; Volba kanálů i metod proběhla manuálně; TP - Počet spěšně detekovaných cyklů; FP - Počet nepravdivě detekovaných cyklů; FN - Počet nedetekovaných pohybů
+            \_firstnoindent \fmark{\ } Volba kanálů i metod proběhla manuálně\nl
+            \fmark{a} Počet spěšně detekovaných markerů\nl
+            \fmark{b} Počet nepravdivě detekovaných markerů\nl
+            \fmark{c} Počet nedetekovaných markerů
         \endinsert
 
     \sec [sec:other_signal] Využití při měření jiných signálů
-    Navrženou metodiku jsem zkusil aplikovat i na jiné signály \rfc{TODO: Tady bych to vubec rozsiril a diskuze o~vyhodach a nevyhodach metody. Kde to fungovat bude a kde to fungovat nebude}, než pouze EMG a to na EKG, konkrétně na dataset ECG-ID. \cite[lugovaya2005biometric] Ukazuje se, že metodika by při ladění jednotlivých parametrů, jako je vzdálensot vrcholů, či jednotlivé prahy měla fungovat. \rfc{TODO: Divna formulace, by mohla pri ladeni parametru. Ukazal bych treba vysledky jako to dopadlo plne automaticky, a pak vysledky jako do dopadlo vyladene} Výsledek je ukázán v~obrázku \ref[fig:ecg].
+        Navrženou metodiku jsem zkusil aplikovat i na jiné signály, než měřené EMG. Algoritmus tak jak je napsán, detekuje obecné cykly, jelikož každý pracovník má jinou náplň práce, popřípadě jiný postup. Díky tomu lze při drobných úpravách, jako je posunutí propustného pásma pásmové propusti v~sekci \ref[sec:emg], aplikovat tento algoritmus na jiné repetitivní signály, např. EKG zdravého člověka. Nevýhodou však je, že při abnormalitách v~signálu se nezvládá algoritmus adaptovat. Toto jsem ověřil na datasetu ECG-ID. \cite[lugovaya2005biometric] Zde nebylo třeba upravovat parametry, obálka 20 - 120 Hz velmi dobře ukázala jednotlivé R-špičky. Výsledné detekce dosahuje specificity 93 \%, viz tabulka \ref[tab:ecg]. Zvýrazněné pohyby jsou ukázány v~obrázku \ref[fig:ecg].
 
+        \midinsert
+            \clabel [tab:ecg] {Výsledky metodiky aplikované na EKG}
+            \caption/t Výsledky metodiky aplikované na EKG
+
+            \ctable {lcccc} {
+                Nahrávka\fmark{a} & TP\fmark{b}\hfil & FP\fmark{c}\hfil & FN\fmark{d}\hfil & Senzitivita (\%) \hfil \crl \tskip 4pt
+                Person_01/rec_1 (100) & 52 & 0 & 4 & 92,86 \cr
+                Person_01/rec_2 (101) & 50 & 0 & 2 & 96,15 \cr
+                Person_01/rec_3 (102) & 50 & 2 & 0 & 100 \cr
+                Person_02/rec_1 (103) & 48 & 2 & 0 & 100 \cr
+                Person_02/rec_2 (104) & 56 & 0 & 2 & 96,55 \cr
+                Person_02/rec_3 (105) & 58 & 2 & 0 & 100 \cr
+                Person_03/rec_1 (106) & 46 & 2 & 2 & 95,83 \cr
+                Person_03/rec_2 (107) & 50 & 0 & 2 & 96,15 \cr
+                Person_03/rec_3 (108) & 44 & 2 & 2 & 95,65 \cr
+            }
+            \_firstnoindent \fmark{\ } Volba kanálů i metod proběhla manuálně\nl
+            \fmark{a} Údaj v~závorce je číslo subjektu v~přiložených souborech viz příloha \ref[chap:files]\nl
+            \fmark{b} Počet spěšně detekovaných markerů\nl
+            \fmark{c} Počet nepravdivě detekovaných markerů\nl
+            \fmark{d} Počet nedetekovaných markerů
+        \endinsert
 
         \midinsert
             \clabel [fig:ecg] {Výsledek aplikace metodiky na signál ECG}

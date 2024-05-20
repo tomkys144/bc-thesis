@@ -26,7 +26,7 @@
 
             \glref{CMRR} je často kolem 120-150 dB při 50 Hz a s~vyššími frekvencemi pak klesá.
 
-            Vstupy zesilovače jsou 3, 2 aktivní a jeden pasivní. Dnes jsou značeny E1 (černý vstup), E2 (červený vstup) a E0 (zelený vstup). Dříve se vyskytovalo značení G1, G2 a ground, či "active", "reference" a "ground". \cite[criswell2011cram, tankisi2020standards]
+            Vstupy zesilovače jsou 3, 2 aktivní a jeden pasivní. Dnes jsou značeny E1 (černý vstup), E2 (červený vstup) a E0 (zelený vstup). Dříve se vyskytovalo značení G1, G2 a ground, či active, reference a ground. \cite[criswell2011cram, tankisi2020standards]
 
             \midinsert
                 \clabel [tab:diff-amp] {Schéma fungování diferenciálního zesilovače}
@@ -35,7 +35,7 @@
             \endinsert
 
         \secc [sec:emg-hw-filters] Filtry
-            V~zesíleném signálu se stále i po potlačení společné složky vyskytují šumy a artefakty. Artefakty jsou dvou typů, technologické a biologické. Mezi technologické se řadí "cable motion artefakt" (frekvence 1-10 Hz), šum z~nedokonalého spojení elektrody s~pokožkou danou převážně roztahováním pokožky či z~biomedicínských zařízení (jako je např. kardiostimulátor). Mezi biologické se řadí převážně šum z~okolních svalů (tzv. "crosstalk"). Tyto šumy je následně třeba odfiltrovat, či alespoň minimalizovat. \cite[criswell2011cram, tankisi2020standards]
+            V~zesíleném signálu se stále i po potlačení společné složky vyskytují šumy a artefakty. Artefakty jsou dvou typů, technologické a biologické. Mezi technologické se řadí cable motion artefakt (frekvence 1-10 Hz), šum z~nedokonalého spojení elektrody s~pokožkou danou převážně roztahováním pokožky či z~biomedicínských zařízení (jako je např. kardiostimulátor). Mezi biologické se řadí převážně šum z~okolních svalů (tzv. crosstalk). Tyto šumy je následně třeba odfiltrovat, či alespoň minimalizovat. \cite[criswell2011cram, tankisi2020standards]
 
             Filtry se primárně dělí na analogové a digitální.
             Analogové filtry působí ve spojitém čase a lze je často snadno vytvořit pomocí diskrétních součástek, jako jsou kondenzátory, rezistory, iduktory či operační zesilovače. Zde se setkáváme s~dělením na pasivní a aktivní, kdy pasivní filtr se skládá pouze z~pasivních prvků, zatímco aktivní vyžaduje externí napájení, ale zase díky němu jsme schopni dosáhnout vyšší filtrace s~menším řádem.
@@ -77,13 +77,14 @@
 
             \midinsert
                 \clabel [tab:filtfreq] {Typické hodnoty amplitudy, frekvencí BP a vzorkovací frekvence}
+                \caption/t Typické hodnoty amplitudy, frekvencí \glref{BP} a vzorkovací frekvence \cite[tankisi2020standards]
+
                 \ctable {lccc} {
                     \hfil Metoda měření & Amplituda         & Frekvence \glref{BP}              & Vzorkovací frekvence \crl \tskip 4pt
                     Jehlové \glref{EMG} & $0-30 \hbox{ mV}$ & $2 \hbox{ Hz} - 10 \hbox{ kHz}$   & $50 \hbox{ kHz}$     \cr
                     \glref{sfEMG}       & $0-50 \hbox{ mV}$ & $500 \hbox{ Hz} - 10 \hbox{ kHz}$ & $50 \hbox{ kHz}$     \cr
                     \glref{sEMG}        & $0-10 \hbox{ mV}$ & $1 \hbox{ Hz} - 1 \hbox{ kHz}$    & $5 \hbox{ kHz}$      \cr
                 }
-                \caption/t Typické hodnoty amplitudy, frekvencí \glref{BP} a vzorkovací frekvence \cite[tankisi2020standards]
             \endinsert
 
     \sec [sec:electrodes] Umístění elektrod
